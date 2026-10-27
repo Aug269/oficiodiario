@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#4a153b"/>
+  <!-- Arch window border -->
+  <path d="M256 70 C 180 70 140 140 140 230 L 140 430 L 372 430 L 372 230 C 372 140 332 70 256 70 Z" fill="none" stroke="#FAF8F5" stroke-width="16" stroke-linejoin="round"/>
+  <!-- Inner arch decorative outline -->
+  <path d="M256 100 C 196 100 166 155 166 230 L 166 410 L 346 410 L 346 230 C 346 155 316 100 256 100 Z" fill="none" stroke="#FAF8F5" stroke-width="6" opacity="0.6"/>
+  <!-- Central cross -->
+  <path d="M236 140 L 276 140 L 276 216 L 352 216 L 352 256 L 276 256 L 276 400 L 236 400 L 236 256 L 160 256 L 160 216 L 236 216 Z" fill="#FAF8F5"/>
+  <!-- Small red gemstone cross center -->
+  <rect x="246" y="226" width="20" height="20" fill="#dc2626" rx="2"/>
+  <rect x="248" y="160" width="16" height="16" fill="#dc2626" rx="2"/>
+  <rect x="248" y="320" width="16" height="16" fill="#dc2626" rx="2"/>
+  <rect x="180" y="228" width="16" height="16" fill="#dc2626" rx="2"/>
+  <rect x="316" y="228" width="16" height="16" fill="#dc2626" rx="2"/>
+</svg>
