@@ -13,6 +13,7 @@ import { WeeklyOfficeView } from './components/WeeklyOfficeView';
 import { CollectsCatalogView } from './components/CollectsCatalogView';
 import { CanticlesCatalogView } from './components/CanticlesCatalogView';
 import { CalendarView } from './components/CalendarView';
+import { OccasionsView } from './components/OccasionsView';
 import { AboutView } from './components/AboutView';
 import { PWAInstallButton } from './components/PWAInstallButton';
 import {
@@ -30,7 +31,8 @@ import {
   Menu,
   X,
   Type,
-  WifiOff
+  WifiOff,
+  CalendarHeart
 } from 'lucide-react';
 
 export default function App() {
@@ -42,7 +44,7 @@ export default function App() {
   const getCurrentHourId = (): CanonicalHour['id'] => getCanonicalHourId(new Date());
 
   const [selectedHourId, setSelectedHourId] = useState<CanonicalHour['id']>(getCurrentHourId());
-  const [activeView, setActiveView] = useState<'tradicional' | 'familias' | 'semana' | 'coletas' | 'canticos' | 'calendario' | 'sobre'>('tradicional');
+  const [activeView, setActiveView] = useState<'tradicional' | 'familias' | 'semana' | 'coletas' | 'canticos' | 'calendario' | 'ocasioes' | 'sobre'>('tradicional');
   const [fontSize, setFontSize] = useState<'sm' | 'base' | 'lg' | 'xl'>('base');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -168,6 +170,14 @@ export default function App() {
               Calendário
             </button>
             <button
+              onClick={() => setActiveView('ocasioes')}
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+                activeView === 'ocasioes' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
+              }`}
+            >
+              Ocasiões
+            </button>
+            <button
               onClick={() => setActiveView('sobre')}
               className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
                 activeView === 'sobre' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
@@ -260,6 +270,12 @@ export default function App() {
               className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'calendario' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <CalendarIcon className="w-4 h-4" /> Calendário REB
+            </button>
+            <button
+              onClick={() => { setActiveView('ocasioes'); setIsMobileMenuOpen(false); }}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'ocasioes' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+            >
+              <CalendarHeart className="w-4 h-4" /> Comuns e Ocasiões
             </button>
           </div>
           <button
@@ -370,6 +386,10 @@ export default function App() {
             onSelectDate={(d) => setCurrentDate(d)}
             onOpenOfficeForDate={handleSelectDateAndOpen}
           />
+        )}
+
+        {activeView === 'ocasioes' && (
+          <OccasionsView />
         )}
 
         {activeView === 'sobre' && (

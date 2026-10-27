@@ -6,6 +6,7 @@ import {
   LiturgicalDayInfo,
 } from '../services/liturgicalCalendar';
 import { Calendar, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
+import { getCommemorationsForDate } from '../data/commemorationsData';
 
 interface CalendarViewProps {
   currentDate: Date;
@@ -51,6 +52,10 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   const [showTableModal, setShowTableModal] = useState<boolean>(false);
 
   const info: LiturgicalDayInfo = getLiturgicalInfo(activeDate);
+  const optionalCommemorations = useMemo(
+    () => getCommemorationsForDate(activeDate.getMonth(), activeDate.getDate()).filter((c) => c.kind === 'comemoracao'),
+    [activeDate],
+  );
 
   // Tábua perpétua 2026–2075, calculada pelo mesmo motor do app (pp. 173–174 do livro).
   const tableRows: TableRow[] = useMemo(() => {
@@ -193,6 +198,21 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <div className="flex justify-between items-center py-2 border-b border-stone-100/60 dark:border-stone-800/60 text-[#b91c1c] dark:text-rose-400">
               <span>Dia Santo de Letra Vermelha:</span>
               <span className="font-bold text-right">{info.holyDay}</span>
+            </div>
+          )}
+          {optionalCommemorations.length > 0 && (
+            <div className="py-2 border-b border-stone-100/60 dark:border-stone-800/60">
+              <p className="rubric mb-1.5">Comemorações opcionais do calendário:</p>
+              <ul className="space-y-1">
+                {optionalCommemorations.map((c, i) => (
+                  <li key={`${c.month}-${c.day}-${i}`} className="text-sm font-serif text-stone-700 dark:text-stone-300">
+                    <span className="font-semibold">{c.name}</span>
+                    {c.role && <span className="text-stone-500 dark:text-stone-400">, {c.role}</span>}
+                    {c.years && <span className="text-stone-400 dark:text-stone-500">, {c.years.join(' e ')}</span>}
+                    {c.era && <span className="text-stone-400 dark:text-stone-500">, {c.era}</span>}
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
         </div>

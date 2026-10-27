@@ -44,9 +44,31 @@ export interface LectionaryDay {
   readings: LectionaryReading[];
 }
 
+/** Comum dos Santos: bloco de leituras para categorias de santos (pp. 405–406). */
+export interface CommonLectionary {
+  id: string;
+  name: string;
+  readings: GeneratedReading[];
+}
+
+/** Comemoração e ocasião especial (pp. 407–409), com nota de tempo quando há. */
+export interface OccasionLectionary extends CommonLectionary {
+  note?: string;
+}
+
+/** Antífona Ó dos dias 17 a 23 de dezembro (pp. 409–410). */
+export interface OAntiphonDay {
+  day: number;
+  name: string;
+  readings: GeneratedReading[];
+}
+
 type GeneratedModule = {
   lectionary: Record<string, GeneratedEntry>;
   holyDays: Record<string, GeneratedReading[]>;
+  commons: Record<string, CommonLectionary>;
+  occasions: Record<string, OccasionLectionary>;
+  oAntiphons: OAntiphonDay[];
 };
 
 let modulePromise: Promise<GeneratedModule> | null = null;
@@ -55,6 +77,9 @@ function loadGenerated(): Promise<GeneratedModule> {
     modulePromise = import('./lectionaryData.generated').then((m) => ({
       lectionary: m.LECTIONARY_GENERATED.lectionary as unknown as Record<string, GeneratedEntry>,
       holyDays: m.LECTIONARY_GENERATED.holyDays as unknown as Record<string, GeneratedReading[]>,
+      commons: m.LECTIONARY_GENERATED.commons as unknown as Record<string, CommonLectionary>,
+      occasions: m.LECTIONARY_GENERATED.occasions as unknown as Record<string, OccasionLectionary>,
+      oAntiphons: m.LECTIONARY_GENERATED.oAntiphons as unknown as OAntiphonDay[],
     }));
   }
   return modulePromise;
@@ -108,6 +133,11 @@ function toView(readings: GeneratedReading[]): LectionaryReading[] {
     title: r.title,
     ...(r.series ? { series: r.series } : {}),
   }));
+}
+
+/** Rotula referências brutas do gerador para exibição (tipo de leitura). */
+export function decorateReadings(readings: GeneratedReading[]): LectionaryReading[] {
+  return toView(readings);
 }
 
 const WEEKDAY_SLOT = {
@@ -193,4 +223,22 @@ export async function getLectionaryForDay(info: LiturgicalDayInfo): Promise<Lect
 export async function getLectionaryKeys(): Promise<string[]> {
   const { lectionary } = await loadGenerated();
   return Object.keys(lectionary).sort();
+}
+
+/** Comuns dos Santos (pp. 405–406), na ordem do livro. */
+export async function getCommons(): Promise<CommonLectionary[]> {
+  const { commons } = await loadGenerated();
+  return Object.values(commons);
+}
+
+/** Comemorações e ocasiões especiais (pp. 407–409), na ordem do livro. */
+export async function getOccasions(): Promise<OccasionLectionary[]> {
+  const { occasions } = await loadGenerated();
+  return Object.values(occasions);
+}
+
+/** Antífonas Ó de 17 a 23 de dezembro (pp. 409–410). */
+export async function getOAntiphons(): Promise<OAntiphonDay[]> {
+  const { oAntiphons } = await loadGenerated();
+  return oAntiphons;
 }

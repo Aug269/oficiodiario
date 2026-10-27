@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { FAMILY_OFFICES, ADDITIONAL_PRAYERS } from '../data/liturgyData';
+import { FAMILY_OFFICES, ADDITIONAL_PRAYERS, APOSTLES_CREED } from '../data/liturgyData';
 import { FamilyOffice } from '../types/liturgy';
 import { SilenceTimer } from './SilenceTimer';
-import { Users, Heart, Coffee } from 'lucide-react';
+import { Users, Heart, Coffee, BookMarked } from 'lucide-react';
 
 interface FamilyOfficeViewProps {
   fontSize: 'sm' | 'base' | 'lg' | 'xl';
@@ -10,7 +10,7 @@ interface FamilyOfficeViewProps {
 
 export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize }) => {
   const [selectedSubOffice, setSelectedSubOffice] = useState<string>('manha');
-  const [activeTab, setActiveTab] = useState<'oficios' | 'adicionais' | 'refeicoes'>('oficios');
+  const [activeTab, setActiveTab] = useState<'oficios' | 'adicionais' | 'refeicoes' | 'credo'>('oficios');
 
   const currentOffice: FamilyOffice = FAMILY_OFFICES.find(o => o.id === selectedSubOffice) || FAMILY_OFFICES[0];
 
@@ -69,8 +69,33 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize }) 
             <Coffee className="w-3.5 h-3.5" />
             Às Refeições
           </button>
+          <button
+            onClick={() => setActiveTab('credo')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-sans font-medium transition-colors ${
+              activeTab === 'credo'
+                ? 'bg-[#4a153b] text-white shadow-xs'
+                : 'bg-stone-200/60 dark:bg-stone-800 text-stone-700 dark:text-stone-300 hover:bg-stone-200'
+            }`}
+          >
+            <BookMarked className="w-3.5 h-3.5" />
+            Credo Apostólico
+          </button>
         </div>
       </header>
+
+      {/* Credo Apostólico (p. 86 do livro) */}
+      {activeTab === 'credo' && (
+        <div className="max-w-2xl mx-auto">
+          <div className="p-8 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200/90 dark:border-stone-800 shadow-sm">
+            <p className="rubric mb-5">
+              Quando se diz o Credo nestas orações, o texto é este:
+            </p>
+            <p className="font-semibold whitespace-pre-line text-stone-900 dark:text-stone-100 leading-relaxed font-serif text-lg">
+              {APOSTLES_CREED}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Mode 1: 5 Daily Moments */}
       {activeTab === 'oficios' && (

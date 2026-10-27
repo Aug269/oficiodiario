@@ -1121,6 +1121,58 @@ export const CANTICLES: Canticle[] = [
     ]
   },
   {
+    id: 'quaerite-dominum',
+    latinTitle: 'Quaerite Dominum',
+    portugueseTitle: 'Buscai o SENHOR',
+    seasonRecommendation: 'Especialmente apropriado para a Quaresma.',
+    reference: 'Isaías 55:6–11',
+    verses: [
+      { call: 'Buscai o SENHOR enquanto ele se deixa encontrar;', response: 'invocai-o enquanto está perto.' },
+      { call: 'Abandone o ímpio o seu caminho,', response: 'e o homem mau, os seus pensamentos;' },
+      { call: 'volte-se para o SENHOR, que se compadecerá dele,', response: 'para o nosso Deus, que é generoso em perdoar.' },
+      { call: 'Pois os meus pensamentos não são os vossos pensamentos,', response: 'nem os vossos caminhos são os meus caminhos, diz o SENHOR.' },
+      { call: 'Assim como os céus são mais altos que a terra,', response: 'assim os meus caminhos são mais altos que os vossos caminhos, e os meus pensamentos, mais que os vossos pensamentos.' },
+      { call: 'Assim como a chuva e a neve descem do céu', response: 'e para lá não voltam sem regar a terra, fazendo-a germinar e crescer,' },
+      { call: 'dando semente ao que semeia e pão ao que come,', response: 'assim é a minha palavra que sai da minha boca:' },
+      { call: 'não voltará para mim vazia, mas realizará o que desejo', response: 'e cumprirá aquilo para que a enviei.' }
+    ]
+  },
+  {
+    id: 'cantemus-domino',
+    latinTitle: 'Cantemus Domino',
+    portugueseTitle: 'Cântico de Moisés',
+    seasonRecommendation: 'Especialmente apropriado para o Tempo Pascal.',
+    reference: 'Êxodo 15:1–6, 11–13, 17–18',
+    verses: [
+      { call: 'Cantarei ao SENHOR, pois ele é sublime e exaltado;', response: 'lançou ao mar o cavalo e o seu cavaleiro.' },
+      { call: 'O SENHOR é a minha força e o meu refúgio;', response: 'o SENHOR tornou-se o meu Salvador.' },
+      { call: 'Este é o meu Deus, e eu o louvarei;', response: 'o Deus do meu povo, e eu o exaltarei.' },
+      { call: 'O SENHOR é um poderoso guerreiro;', response: 'SENHOR é o seu nome.' },
+      { call: 'Os carros de Faraó e o seu exército ele lançou ao mar;', response: 'os melhores dos seus guerreiros afogaram-se no mar Vermelho.' },
+      { call: 'O abismo profundo os cobriu;', response: 'afundaram nas profundezas como pedra.' },
+      { call: 'A tua mão direita, SENHOR, é gloriosa em poder;', response: 'a tua mão direita, SENHOR, derrotou o inimigo.' },
+      { call: 'Quem entre os deuses é como tu, SENHOR?', response: 'Quem é como tu, glorioso em santidade, temível em feitos, que operas maravilhas?' },
+      { call: 'Estendeste a tua mão direita,', response: 'e a terra os engoliu.' },
+      { call: 'Com o teu amor constante conduziste o povo que resgataste;', response: 'com segurança o levaste à tua santa morada.' },
+      { call: 'Tu os farás entrar e os plantarás', response: 'no monte da tua herança, no lugar que preparaste para a tua habitação, SENHOR,' },
+      { call: 'no santuário, Senhor, que as tuas mãos estabeleceram.', response: 'O SENHOR reinará para todo o sempre.' }
+    ]
+  },
+  {
+    id: 'dignus-es',
+    latinTitle: 'Dignus es',
+    portugueseTitle: 'Cântico ao Cordeiro',
+    seasonRecommendation: 'Especialmente apropriado para depois da Ascensão e para o Tempo Pascal.',
+    reference: 'Apocalipse 4:11; 5:9–10, 13–14',
+    verses: [
+      { call: 'Esplendor, honra e poder real', response: 'te pertencem por direito, ó Senhor, nosso Deus,' },
+      { call: 'pois tu criaste todas as coisas,', response: 'e por tua vontade elas foram criadas e existem;' },
+      { call: 'e pertencem por direito a ti, ó Cordeiro que foi imolado,', response: 'pois com o teu sangue resgataste para Deus, de toda família, língua, povo e nação,' },
+      { call: 'um reino de sacerdotes para servir ao nosso Deus.', response: 'Por isso, àquele que está sentado no trono' },
+      { call: 'e a Cristo, o Cordeiro, sejam a adoração e o louvor, o domínio e o esplendor,', response: 'para todo o sempre. Amém.' }
+    ]
+  },
+  {
     id: 'cantate-domino',
     latinTitle: 'Cantate Domino',
     portugueseTitle: 'Cantai ao Senhor',
@@ -1130,6 +1182,38 @@ export const CANTICLES: Canticle[] = [
       { call: 'Cantai ao SENHOR um cântico novo, pois ele fez maravilhas;', response: 'a sua mão direita e o seu braço santo lhe deram a vitória.' },
       { call: 'O SENHOR deu a conhecer a sua salvação;', response: 'revelou a sua justiça diante das nações.' },
       { call: 'Aclamai o SENHOR, toda a terra; alegrai-vos, exultai e cantai louvores.', response: 'Cantai louvores ao SENHOR com a harpa e ao som da trompa diante do Rei, o SENHOR.' }
+    ]
+  },
+  {
+    id: 'ecce-deus',
+    latinTitle: 'Ecce Deus',
+    portugueseTitle: 'Deus é quem me salva',
+    seasonRecommendation: 'Apropriado para qualquer tempo.',
+    reference: 'Isaías 12:2–6',
+    verses: [
+      { call: 'Deus é, sem dúvida, quem me salva;', response: 'confiarei nele e não terei medo.' },
+      { call: 'Pois o SENHOR é a minha força e a minha defesa segura,', response: 'e ele será o meu Salvador.' },
+      { call: 'Por isso, com alegria tirareis água', response: 'das fontes da salvação.' },
+      { call: 'E naquele dia direis:', response: 'Dai graças ao SENHOR e invocai o seu nome;' },
+      { call: 'tornai conhecidos entre os povos os seus feitos;', response: 'lembrai-lhes que o seu nome é exaltado.' },
+      { call: 'Cantai louvores ao SENHOR, pois ele fez grandes coisas,', response: 'e isso é conhecido em toda a terra.' },
+      { call: 'Gritai de alegria e exultai, habitantes de Sião,', response: 'pois grande é, no meio de vós, o Santo de Israel.' }
+    ]
+  },
+  {
+    id: 'deus-misereatur',
+    latinTitle: 'Deus misereatur',
+    portugueseTitle: 'Deus tenha misericórdia de nós',
+    seasonRecommendation: 'Apropriado para qualquer tempo.',
+    reference: 'Salmo 67',
+    verses: [
+      { call: 'Que Deus tenha misericórdia de nós e nos abençoe,', response: 'faça resplandecer sobre nós a luz do seu rosto e tenha compaixão de nós.' },
+      { call: 'Que o teu caminho seja conhecido na terra,', response: 'e a tua salvação entre todas as nações.' },
+      { call: 'Que os povos te louvem, ó Deus;', response: 'que todos os povos te louvem.' },
+      { call: 'Que as nações se alegrem e exultem,', response: 'pois julgas os povos com justiça e governas as nações da terra.' },
+      { call: 'Que os povos te louvem, ó Deus;', response: 'que todos os povos te louvem.' },
+      { call: 'Então a terra dará o seu fruto,', response: 'e Deus, o nosso Deus, nos abençoará.' },
+      { call: 'Deus nos abençoará,', response: 'e todos os confins da terra o temerão.' }
     ]
   },
   {
@@ -1320,3 +1404,9 @@ export const ADDITIONAL_PRAYERS = [
     text: 'Abençoa, Senhor, estes alimentos para o nosso sustento, e a nós para o teu serviço, e faze-nos sempre atentos às necessidades dos outros; por Jesus Cristo, nosso Senhor. Amém.'
   }
 ];
+
+/**
+ * Credo Apostólico (p. 86 do livro): texto único empregado quando se diz o
+ * Credo nas orações para famílias e indivíduos.
+ */
+export const APOSTLES_CREED = `Creio em Deus Pai Todo-Poderoso, Criador do céu e da terra; e em Jesus Cristo, seu único Filho, nosso Senhor, o qual foi concebido por obra do Espírito Santo, nasceu da Virgem Maria, padeceu sob o poder de Pôncio Pilatos, foi crucificado, morto e sepultado, desceu ao Hades, ressuscitou ao terceiro dia, subiu ao Céu, e está sentado à mão direita de Deus Pai Todo-Poderoso donde há de vir a julgar os vivos e os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na Comunhão dos Santos, na remissão dos pecados, na ressurreição do corpo e na Vida eterna. Amém.`;

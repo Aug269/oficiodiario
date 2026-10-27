@@ -43,7 +43,7 @@ export const CollectsCatalogView: React.FC<CollectsCatalogViewProps> = ({ fontSi
           Coletas da Igreja
         </h1>
         <p className="text-sm font-sans text-stone-500 dark:text-stone-400 mt-2 max-w-xl mx-auto">
-          As preces coletivas do Ano Cristão, das Festas Principais, dos Dias Santos e das Comemorações históricas.
+          As preces coletivas do Ano Cristão, das Festas Principais, dos Dias Santos, das Coletas Comuns e das Comemorações históricas.
         </p>
 
         {/* Filter bar and search */}
@@ -80,6 +80,14 @@ export const CollectsCatalogView: React.FC<CollectsCatalogViewProps> = ({ fontSi
               }`}
             >
               Comemorações
+            </button>
+            <button
+              onClick={() => setSelectedCategory('comuns')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-sans font-medium transition-colors ${
+                selectedCategory === 'comuns' ? 'bg-[#4a153b] text-white shadow-xs' : 'text-stone-600 dark:text-stone-400'
+              }`}
+            >
+              Coletas Comuns
             </button>
           </div>
 

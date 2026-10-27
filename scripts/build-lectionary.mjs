@@ -40,7 +40,7 @@ const BOOKS = [
   '1 Tessalonicenses', '2 Tessalonicenses', '1 Timóteo', '2 Timóteo',
   '1 Coríntios', '2 Coríntios', '1 Pedro', '2 Pedro', '1 João', '2 João', '3 João',
   'Cântico dos Cânticos', 'Números', 'Deuteronômio', 'Provérbios', 'Eclesiastes',
-  'Eclesiástico', 'Lamentações', 'Sofonias', 'Miquéias', 'Zacarias', 'Malaquias',
+  'Eclesiástico', 'Lamentações', 'Sofonias', 'Miquéias', 'Miqueias', 'Zacarias', 'Malaquias',
   'Colossenses', 'Filipenses', 'Tessalonicenses', 'Apocalipse', 'Jeremias',
   'Gênesis', 'Êxodo', 'Levítico', 'Neemias', 'Ezequiel', 'Hebreus', 'Filemom',
   'Sabedoria', 'Baruque', 'Isaías', 'Oséias', 'Oseias', 'Obadias', 'Habacuque', 'Ageu',
@@ -52,7 +52,7 @@ const BOOKS = [
   const refRe = new RegExp(
     `(${BOOKS.map((b) => b.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})` +
     `(\\s\\d{1,3}(?:\\([^)]*\\))?(?::(?:\\([^)]*\\)|\\d{1,3}[a-z]?))?` +
-    `(?:\\s?[–—-]\\s?\\d{1,3}(?::\\d{1,3}[a-z]?)?)*` +
+    `(?:\\s?[–—-]\\s?\\d{1,3}(?::\\d{1,3}[a-z]?)?[a-z]?)*` +
     `(?:,\\s?\\d{1,3}[a-z]?(?:[–-]\\d{1,3})?)*` +
     `(?:[,\\s]*\\([^)]*\\))*` +
     `(?:;\\s?\\d{1,3}(?::\\d{1,3})?[a-z]?(?:[–-]\\d{1,3})?)*)`,
@@ -76,7 +76,9 @@ function parseReadings(region) {
     const m = matches[i];
     const before = region.slice(matches[i - 1] ? matches[i - 1].index + matches[i - 1][0].length : 0, m.index);
     const afterEnd = i + 1 < matches.length ? matches[i + 1].index : region.length;
-    let title = clean(region.slice(m.index + m[0].length, afterEnd));
+    let title = clean(region.slice(m.index + m[0].length, afterEnd))
+      // Restos de alternativas ("ou") e sufixos de versículo ("a") não são títulos.
+      .replace(/^(ou|[a-z])$/u, '');
     const prefix = before.trim();
     const series = /(?:^|\s)(s|c)$/.test(prefix) ? prefix.slice(-1) : undefined;
     const alternative = /\bou$/.test(prefix);
@@ -325,13 +327,130 @@ dateMatches.forEach((m, i) => {
   if (readings.length >= 2) holyDays[key] = readings;
 });
 
+// ---------- Comuns dos Santos, Ocasiões e O Antifonas (pp. 405–410) ----------
+
+/** Remove cabeçalhos corridos e números de página das páginas de ocasiões. */
+function stripRunningHeaders(text) {
+  return text
+    .replace(new RegExp(flex('Lecionário · Dias Santos e Ocasiões'), 'gu'), ' ')
+    .replace(new RegExp(flex('Comuns dos Santos'), 'gu'), ' ')
+    .replace(new RegExp(flex('Comemorações e Ocasiões Especiais'), 'gu'), ' ')
+    .replace(/\s+(?:40[5-9]|410)\s+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/**
+ * Divide um fluxo de texto em seções por âncoras de título (com tolerância
+ * ao espaçamento flexível do PDF) e extrai as referências de cada uma.
+ * `expected` falha o build se a contagem de leituras divergir do livro.
+ */
+function parseAnchorSections(stream, anchors) {
+  const located = anchors.map(([id, heading, expected, name, note]) => {
+    const re = flexRe(heading);
+    const m = [...stream.matchAll(new RegExp(re.source, 'gu'))][0];
+    if (!m) throw new Error(`Âncora não encontrada: ${heading}`);
+    return { id, heading, expected, name, note, index: m.index, len: m[0].length };
+  });
+  const out = {};
+  located.forEach((sec, i) => {
+    const start = sec.index + sec.len;
+    const end = i + 1 < located.length ? located[i + 1].index : stream.length;
+    const readings = parseReadings(stream.slice(start, end))
+      .map((r) => ({ ...r, title: r.title.replace(/\s*A\s*n\s*o\s+[ABC]\s*$/u, '').trim() || 'Leitura designada' }));
+    if (readings.length !== sec.expected) {
+      throw new Error(`${sec.name}: esperava ${sec.expected} leituras, obteve ${readings.length} (${readings.map((r) => r.ref).join(' | ')})`);
+    }
+    out[sec.id] = {
+      id: sec.id,
+      name: sec.name,
+      ...(sec.note ? { note: sec.note } : {}),
+      readings,
+    };
+  });
+  return out;
+}
+
+const COMMON_ANCHORS = [
+  ['comum-martires', 'Comum dos Mártires', 3, 'Comum dos Mártires'],
+  ['comum-missionarios', 'Comum dos Missionários', 4, 'Comum dos Missionários'],
+  ['comum-pastores', 'Comum dos Pastores / Bispos', 4, 'Comum dos Pastores / Bispos'],
+  ['comum-teologos', 'Comum dos Teólogos, Mestres e Confessores', 4, 'Comum dos Teólogos, Mestres e Confessores'],
+  ['comum-comunidade', 'Comum dos Membros de Comunidade ou Ordem Religiosa', 4, 'Comum dos Membros de Comunidade ou Ordem Religiosa'],
+  ['comum-reformadores', 'Comum dos Reformadores', 4, 'Comum dos Reformadores'],
+  ['comum-santos', 'Comum dos Santos e Santas', 4, 'Comum dos Santos e Santas'],
+];
+const commons = parseAnchorSections(
+  stripRunningHeaders([405, 406].map((p) => pageMap.get(p) ?? '').join(' ')),
+  COMMON_ANCHORS,
+);
+
+const OCCASION_ANCHORS = [
+  ['ocas-almas', 'Memorial de Todas as Almas', 7, 'Memorial de Todas as Almas', '2 de novembro'],
+  ['ocas-natividade-maria', 'Natividade de Maria, mãe de nosso Senhor', 4, 'Natividade de Maria, mãe de nosso Senhor', '8 de setembro'],
+  ['ocas-temporas-dezembro', 'Dias de Têmporas de dezembro', 4, 'Dias de Têmporas de dezembro', 'Depois do Dia de Santa Luzia'],
+  ['ocas-temporas-quaresma', 'Dias de Têmporas da Quaresma', 4, 'Dias de Têmporas da Quaresma', 'Depois do 1º Domingo da Quaresma'],
+  ['ocas-temporas-pentecostes', 'Dias de Têmporas de Pentecostes', 4, 'Dias de Têmporas de Pentecostes', 'Depois do Dia de Pentecostes'],
+  ['ocas-temporas-setembro', 'Dias de Têmporas de setembro', 4, 'Dias de Têmporas de setembro', 'Depois do Dia da Santa Cruz'],
+  ['ocas-rogacao', 'Dias de Rogação', 4, 'Dias de Rogação', 'Os três dias antes da Ascensão'],
+  ['ocas-acao-gracas-a', 'Dia de Ação de Graças Ano A', 4, 'Dia de Ação de Graças — Ano A'],
+  ['ocas-acao-gracas-b', 'Ano B', 4, 'Dia de Ação de Graças — Ano B'],
+  ['ocas-acao-gracas-c', 'Ano C', 4, 'Dia de Ação de Graças — Ano C'],
+  ['ocas-colheita', 'Ação de Graças pela Colheita', 4, 'Ação de Graças pela Colheita'],
+  ['ocas-paz', 'Pela Paz', 4, 'Pela Paz'],
+  ['ocas-missao', 'Pela Missão da Igreja', 4, 'Pela Missão da Igreja'],
+  ['ocas-unidade', 'Pela Unidade da Igreja', 4, 'Pela Unidade da Igreja'],
+  ['ocas-justica-social', 'Pela Justiça Social', 4, 'Pela Justiça Social'],
+];
+const occasionStream = stripRunningHeaders([407, 408, 409].map((p) => pageMap.get(p) ?? '').join(' '));
+const oIntro = [...occasionStream.matchAll(new RegExp(flexRe('Antífonas Ó').source, 'gu'))][0];
+const occasions = parseAnchorSections(
+  oIntro ? occasionStream.slice(0, oIntro.index) : occasionStream,
+  OCCASION_ANCHORS,
+);
+
+// O Antifonas (17 a 23 de dezembro). As datas chegam com dígitos e nomes de
+// mês espaçados letra a letra; cada data real é seguida de "·".
+const O_ANTIPHON_NAMES = {
+  17: 'Ó Sabedoria',
+  18: 'Ó Senhor do Poder',
+  19: 'Ó Raiz de Jessé',
+  20: 'Ó Chave de Davi',
+  21: 'Ó Sol Nascente',
+  22: 'Ó Desejado das Nações',
+  23: 'Ó Emanuel',
+};
+const O_ANTIPHON_EXPECTED = { 17: 3, 18: 3, 19: 3, 20: 3, 21: 4, 22: 3, 23: 3 };
+const flexWord = (w) =>
+  w
+    .split('')
+    .map((ch) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\s*')
+    .join('');
+const oStream = stripRunningHeaders([409, 410].map((p) => pageMap.get(p) ?? '').join(' '));
+const oDateRe = new RegExp(`(\\d)\\s*(\\d)?\\s*d\\s*e\\s+${flexWord('dezembro')}\\s*[·•]`, 'gu');
+const oDates = [...oStream.matchAll(oDateRe)];
+if (oDates.length !== 7) {
+  throw new Error(`O Antifonas: esperava 7 datas, obteve ${oDates.length}`);
+}
+const oAntiphons = oDates.map((m, i) => {
+  const day = Number(m[2] ? `${m[1]}${m[2]}` : m[1]);
+  const start = m.index + m[0].length;
+  const end = i + 1 < oDates.length ? oDates[i + 1].index : oStream.length;
+  const readings = parseReadings(oStream.slice(start, end));
+  if (readings.length !== O_ANTIPHON_EXPECTED[day]) {
+    throw new Error(`O Antifona ${day}: esperava ${O_ANTIPHON_EXPECTED[day]} leituras, obteve ${readings.length}`);
+  }
+  if (!O_ANTIPHON_NAMES[day]) throw new Error(`Dia ${day} fora do intervalo 17–23 de dezembro`);
+  return { day, name: O_ANTIPHON_NAMES[day], readings };
+});
+
 // ---------- Emissão ----------
 const header = `/* GERADO AUTOMATICAMENTE por scripts/build-lectionary.mjs a partir do
  * Ofício Diário & Lecionário oficial da REB (PDF, pp. 175–410).
  * Não editar manualmente; atualize o extrator e rode: npm run build:lectionary
  */
 `;
-const payload = { lectionary: all, holyDays };
+const payload = { lectionary: all, holyDays, commons, occasions, oAntiphons };
 writeFileSync(
   'src/data/lectionaryData.generated.ts',
   `${header}export const LECTIONARY_GENERATED = ${JSON.stringify(payload, null, 1)} as const;\n`,
@@ -341,4 +460,5 @@ const counts = {};
 for (const k of Object.keys(all)) counts[k[0]] = (counts[k[0]] || 0) + 1;
 console.log('entradas por ano:', counts, 'total:', Object.keys(all).length);
 console.log('dias santos:', Object.keys(holyDays).length);
+console.log('comuns:', Object.keys(commons).length, 'ocasiões:', Object.keys(occasions).length, 'O antifonas:', oAntiphons.length);
 console.log('amostra B-tc-25:', JSON.stringify(all['b-tc-25']?.sunday?.slice(0, 4), null, 1));

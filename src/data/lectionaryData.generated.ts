@@ -158,8 +158,8 @@ export const LECTIONARY_GENERATED = {
    "daily": {
     "mon": [
      {
-      "ref": "Isaías 24:1–16",
-      "title": "a O juízo vem, mas glorificai a Deus"
+      "ref": "Isaías 24:1–16a",
+      "title": "O juízo vem, mas glorificai a Deus"
      },
      {
       "ref": "1 Tessalonicenses 4:1–12",
@@ -708,8 +708,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Leitura designada"
      },
      {
-      "ref": "Apocalipse 21:1–6",
-      "title": "a"
+      "ref": "Apocalipse 21:1–6a",
+      "title": "Leitura designada"
      },
      {
       "ref": "Mateus 25:31–46",
@@ -819,7 +819,11 @@ export const LECTIONARY_GENERATED = {
      },
      {
       "ref": "João 12:34–36",
-      "title": "Filhos da luz 9 de ja n e i r o Miqueias 5:2–9 Aquele que governará Israel"
+      "title": "Filhos da luz 9 de ja n e i r o"
+     },
+     {
+      "ref": "Miqueias 5:2–9",
+      "title": "Aquele que governará Israel"
      },
      {
       "ref": "Efésios 4:7, 11–16",
@@ -854,8 +858,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Samuel recebe a palavra de Deus em Siló"
      },
      {
-      "ref": "Atos 9:10–19",
-      "title": "a Ananias recebe Saulo na igreja"
+      "ref": "Atos 9:10–19a",
+      "title": "Ananias recebe Saulo na igreja"
      },
      {
       "ref": "Mateus 8:28–34",
@@ -1262,6 +1266,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "sat": [
      {
+      "ref": "Miqueias 3:1–4",
+      "title": "Não deveríeis conhecer a justiça?"
+     },
+     {
       "ref": "1 Coríntios 1:10–17",
       "title": "Proclamação sem eloquência"
      },
@@ -1294,6 +1302,10 @@ export const LECTIONARY_GENERATED = {
    "key": "a-epif-4",
    "name": "Isaías 9:1–4 A luz brilha para aqueles que estão nas trevas Salmo 27:1, 4–9 Deus é luz e salvação 1 Coríntios 1:10–18 Um apelo à unidade no evangelho Mateus 4:12–23 Cristo revelado como profeta R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra Juízes 6:11–24 Deus chama Gideão para liderar o povo Efésios 5:6–14 Vivei como filhos da luz Lucas 5:27–32 O chamado de Levi T e r ç a - f e i ra Juízes 7:12–22 Deus conduz Gideão à vitória Filipenses 2:12–18 O chamado a resplandecer como estrelas João 8:12–20 Eu sou a luz do mundo Q ua rta - f e i ra Gênesis 49:1–2, 8–13, 21–26 Judá, Zebulom, Naftali e José abençoados Atos 26:12–18 Paulo conta a Agripa sobre a sua conversão Mateus 9:9–13 Jesus chama não os justos, mas os pecadores S a l mo di á r io Salmo 27:7–14 Toma coragem em Deus 188 L e c i o n á r i o · A n o A 4º Doming o dep ois da Epifania",
    "sunday": [
+    {
+     "ref": "Miqueias 6:1–8",
+     "title": "A oferta de justiça, bondade e humildade"
+    },
     {
      "ref": "Salmo 15",
      "title": "Permanecendo na colina sagrada de Deus"
@@ -1421,8 +1433,8 @@ export const LECTIONARY_GENERATED = {
    "name": "Miqueias 6:1–8 A oferta de justiça, bondade e humildade Salmo 15 Permanecendo na colina sagrada de Deus 1 Coríntios 1:18–31 Cristo crucificado, a sabedoria e o poder de Deus Mateus 5:1–12 O ensino de Cristo: bem-aventuranças R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra Rute 1:1–18 Rute, uma dos pobres Filemom 1:1–25 Acerca do escravo Onésimo Lucas 6:17–26 As bem-aventuranças T e r ç a - f e i ra Rute 2:1–16 Rute, uma das famintas Tiago 5:1–6 Uma advertência aos que não são generosos João 13:31–35 O novo mandamento Q ua rta - f e i ra Rute 3:1–13; 4:13–22 Rute, uma das bem-aventuradas Tiago 2:1–13 Não escolheu Deus os pobres? Mateus 25:31–46 A separação das ovelhas e dos bodes S a l mo di á r io Salmo 37:1–17 Deus abençoará os justos E p i fa n i a 189 5º Doming o dep ois da Epifania",
    "sunday": [
     {
-     "ref": "Isaías 58:1–9",
-     "title": "a, (9b–12) O jejum que Deus escolhe"
+     "ref": "Isaías 58:1–9a, (9b–12)",
+     "title": "O jejum que Deus escolhe"
     },
     {
      "ref": "Salmo 112:1–9, (10)",
@@ -1514,8 +1526,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "sat": [
      {
-      "ref": "Deuteronômio 30:1–9",
-      "title": "a A fidelidade de Deus garantida"
+      "ref": "Deuteronômio 30:1–9a",
+      "title": "A fidelidade de Deus garantida"
      },
      {
       "ref": "1 Coríntios 2:12–16",
@@ -1816,8 +1828,8 @@ export const LECTIONARY_GENERATED = {
    "name": "Levítico 19:1–2, 9–18 Atos de misericórdia e justiça Salmo 119:33–40 Andando no caminho da lei 1 Coríntios 3:10–11, 16–23 Fidelidade a Cristo, não a líderes humanos Mateus 5:38–48 O ensinamento de Cristo: amor R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra Provérbios 25:11–22 Cuidando do inimigo Romanos 12:9–21 Cuidando do inimigo Lucas 6:27–31 Amor dos inimigos T e r ç a - f e i ra Gênesis 31:1–3, 17–50 Labão e Jacó se reconciliam Hebreus 12:14–16 Buscai a paz com todos Lucas 18:18–30 O jovem rico governante Q ua rta - f e i ra Provérbios 3:27–35 Respeito pelos vizinhos Romanos 13:8–10 Amor um pelo outro Mateus 26:47–56 Embainha a tua espada S a l mo di á r io Salmo 119:57–64 Guardar a lei apesar dos ímpios 192 L e c i o n á r i o · A n o A 8º Doming o dep ois da Epifania",
    "sunday": [
     {
-     "ref": "Isaías 49:8–16",
-     "title": "a A compaixão maternal de Deus"
+     "ref": "Isaías 49:8–16a",
+     "title": "A compaixão maternal de Deus"
     },
     {
      "ref": "Salmo 131",
@@ -2003,7 +2015,7 @@ export const LECTIONARY_GENERATED = {
     "wed": [
      {
       "ref": "Joel 2:1–2, 12–17",
-      "title": "ou"
+      "title": "Leitura designada"
      },
      {
       "ref": "Isaías 58:1–12",
@@ -2169,6 +2181,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "fri": [
      {
+      "ref": "Miqueias 7:18–20",
+      "title": "A fidelidade de Deus"
+     },
+     {
       "ref": "2 Timóteo 1:8–14",
       "title": "Sem vergonha do evangelho"
      },
@@ -2216,8 +2232,8 @@ export const LECTIONARY_GENERATED = {
    "name": "Gênesis 2:15–17; 3:1–7 Comer da árvore do conhecimento Salmo 32 A misericórdia nos abraça Romanos 5:12–19 A morte veio; a vida vem Mateus 4:1–11 A tentação de Jesus R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra 1 Reis 19:1–8 Um anjo alimenta Elias no deserto Hebreus 2:10–18 Cristo vai adiante de nós no sofrimento Lucas 4:1–13 A tentação de Jesus T e r ç a - f e i ra Gênesis 4:1–16 Deus protege Caim Hebreus 4:14—5:4 Cristo foi tentado como nós Mateus 18:(1–5) 10–14 Nenhum destes pequeninos se perca Q u a r e s m a 195 Q ua rta - f e i ra Êxodo 34:1–9, 27–28 A revelação da misericórdia de Deus Hebreus 5:5–10 Jesus, a fonte da salvação Mateus 6:25–27 O vosso Pai celestial as alimenta S a l mo di á r io Salmo 32 A misericórdia nos envolve 2º Doming o na Quar e sma",
    "sunday": [
     {
-     "ref": "Gênesis 12:1–4",
-     "title": "a A bênção de Deus sobre Abrão"
+     "ref": "Gênesis 12:1–4a",
+     "title": "A bênção de Deus sobre Abrão"
     },
     {
      "ref": "Salmo 121",
@@ -2729,8 +2745,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Jesus entra em Jerusalém L i t ur g i a da P a i xão"
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo se submete ao sofrimento"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo se submete ao sofrimento"
      },
      {
       "ref": "Salmo 31:9–16",
@@ -2782,8 +2798,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Jesus fala de sua morte Quarta-f eira Santa"
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo é justificado por Deus"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo é justificado por Deus"
      },
      {
       "ref": "Salmo 70",
@@ -2979,8 +2995,8 @@ export const LECTIONARY_GENERATED = {
      "title": "Jesus entra em Jerusalém L i t ur g i a da P a i xão"
     },
     {
-     "ref": "Isaías 50:4–9",
-     "title": "a O servo se submete ao sofrimento"
+     "ref": "Isaías 50:4–9a",
+     "title": "O servo se submete ao sofrimento"
     },
     {
      "ref": "Salmo 31:9–16",
@@ -3187,8 +3203,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Moisés e os anciãos comem com Deus"
      },
      {
-      "ref": "Tito 3:1–8",
-      "title": "a Herdeiros segundo a esperança da vida eterna"
+      "ref": "Tito 3:1–8a",
+      "title": "Herdeiros segundo a esperança da vida eterna"
      },
      {
       "ref": "Lucas 16:14–17",
@@ -3730,8 +3746,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "thu": [
      {
-      "ref": "Êxodo 19:1–9",
-      "title": "a A aliança no Sinai"
+      "ref": "Êxodo 19:1–9a",
+      "title": "A aliança no Sinai"
      },
      {
       "ref": "Atos 2:1–11",
@@ -4074,8 +4090,8 @@ export const LECTIONARY_GENERATED = {
    "name": "Gênesis 1:1–2:4a Criação dos céus e da terra Salmo 8 Quão excelso é o teu nome 2 Coríntios 13:11–13 A despedida de Paulo Mateus 28:16–20 Viver na comunidade da Trindade R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra Jó 38:39—39:12 O relato da criação em Jó 1 Coríntios 12:1–3 A fé é um dom do Espírito Lucas 24:44–53 As palavras de despedida de Jesus aos discípulos T e r ç a - f e i ra Jó 39:13–25 O relato da criação em Jó 1 Coríntios 12:4–13 O Espírito na comunidade João 20:30–31 Para que creiais que Jesus é o Cristo Q ua rta - f e i ra Jó 39:26—40:5 O relato da criação em Jó; a resposta de Jó 1 Tessalonicenses 5:12–28 Saudai-vos uns aos outros com ósculo santo Mateus 23:8–12 Todos os que se humilham serão exaltados S a l mo di á r io Salmo 29 Louvai a glória de Deus 212 L e c i o n á r i o · A n o A Pr ópr io 3 Domingo entre 22 e 28 de maio, se depois do Domingo da Trindade",
    "sunday": [
     {
-     "ref": "Isaías 49:8–16",
-     "title": "a A compaixão maternal de Deus"
+     "ref": "Isaías 49:8–16a",
+     "title": "A compaixão maternal de Deus"
     },
     {
      "ref": "Salmo 131",
@@ -4309,8 +4325,8 @@ export const LECTIONARY_GENERATED = {
       "series": "c"
      },
      {
-      "ref": "Romanos 3:19–22",
-      "title": "a Justiça pela fé"
+      "ref": "Romanos 3:19–22a",
+      "title": "Justiça pela fé"
      },
      {
       "ref": "Mateus 12:46–50",
@@ -4637,8 +4653,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Êxodo 19:2–8",
-     "title": "a A aliança com Israel no Sinai",
+     "ref": "Êxodo 19:2–8a",
+     "title": "A aliança com Israel no Sinai",
      "series": "c"
     },
     {
@@ -4866,8 +4882,13 @@ export const LECTIONARY_GENERATED = {
     "mon": [
      {
       "ref": "Gênesis 16:1–15",
-      "title": "O nascimento de Ismael c Miqueias 7:1–7 A corrupção do povo",
+      "title": "O nascimento de Ismael",
       "series": "s"
+     },
+     {
+      "ref": "Miqueias 7:1–7",
+      "title": "A corrupção do povo",
+      "series": "c"
      },
      {
       "ref": "Apocalipse 2:1–7",
@@ -4929,6 +4950,11 @@ export const LECTIONARY_GENERATED = {
      }
     ],
     "thu": [
+     {
+      "ref": "Miqueias 7:18–20",
+      "title": "A fidelidade de Deus para com Jacó e Abraão",
+      "series": "s"
+     },
      {
       "ref": "Jeremias 25:1–7",
       "title": "Israel provoca a ira de Deus",
@@ -5253,8 +5279,8 @@ export const LECTIONARY_GENERATED = {
      "series": "c"
     },
     {
-     "ref": "Romanos 7:15–25",
-     "title": "a A luta dentro de si"
+     "ref": "Romanos 7:15–25a",
+     "title": "A luta dentro de si"
     },
     {
      "ref": "Mateus 11:16–19, 25–30",
@@ -5466,6 +5492,11 @@ export const LECTIONARY_GENERATED = {
    "daily": {
     "mon": [
      {
+      "ref": "Miqueias 1:1–5",
+      "title": "Juízo pela transgressão de Jacó",
+      "series": "s"
+     },
+     {
       "ref": "Levítico 26:3–20",
       "title": "Uma colheita farta e uma pobre",
       "series": "c"
@@ -5632,8 +5663,8 @@ export const LECTIONARY_GENERATED = {
    "name": "s Gênesis 25:19–34 Esaú vende a Jacó o direito de primogenitura c Isaías 55:10–13 O crescimento da palavra s Salmo 119:105–112 A tua palavra é lâmpada para os meus pés c Salmo 65:(1–8), 9–13 Os teus caminhos transbordam de fartura Romanos 8:1–11 Vivendo segundo o Espírito Mateus 13:1–9, 18–23 Parábola do semeador e da semente 222 L e c i o n á r i o · A n o A R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra s Miqueias 1:1–5 Juízo pela transgressão de Jacó c Levítico 26:3–20 Uma colheita farta e uma pobre 1 Tessalonicenses 4:1–8 Uma vida agradável a Deus Lucas 8:4–8 Parábola do semeador e da semente T e r ç a - f e i ra s Jeremias 49:7–11 Edom, filhos de Esaú, castigados c Deuteronômio 28:1–14 As bênçãos da obediência 1 Coríntios 15:35–42 O corpo, como uma semente que morre Mateus 13:10–17 O propósito da parábola Q ua rta - f e i ra s Obadias 1:15–21 O triunfo de Israel à custa de Edom c Provérbios 11:23–30 O fruto da justiça 1 Coríntios 15:42–49 Semeado na morte, ressuscitado em glória Mateus 5:43–48 Sol e chuva sobre justos e injustos igualmente S a l mo di á r io s Salmo 142 Deus, meu refúgio e minha porção c Salmo 92 Os justos como uma árvore Pr ópr io 1 1 Domingo entre 17 e 23 de julho s série semicontínua · c série complementar",
    "sunday": [
     {
-     "ref": "Gênesis 28:10–19",
-     "title": "a O sonho de Jacó com a escada",
+     "ref": "Gênesis 28:10–19a",
+     "title": "O sonho de Jacó com a escada",
      "series": "s"
     },
     {
@@ -5643,7 +5674,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Isaías 44:6–8",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -6470,8 +6501,8 @@ export const LECTIONARY_GENERATED = {
      "series": "c"
     },
     {
-     "ref": "Romanos 11:1–2",
-     "title": "a, 29–32 Gentios e judeus: a misericórdia de Deus para com todos"
+     "ref": "Romanos 11:1–2a, 29–32",
+     "title": "Gentios e judeus: a misericórdia de Deus para com todos"
     },
     {
      "ref": "Mateus 15:(10–20), 21–28",
@@ -6703,8 +6734,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "tue": [
      {
-      "ref": "Êxodo 2:11–15",
-      "title": "a Moisés defende um dos seus",
+      "ref": "Êxodo 2:11–15a",
+      "title": "Moisés defende um dos seus",
       "series": "s"
      },
      {
@@ -7975,8 +8006,8 @@ export const LECTIONARY_GENERATED = {
       "series": "s"
      },
      {
-      "ref": "Isaías 22:1–8",
-      "title": "a Um clamor vão aos montes por socorro",
+      "ref": "Isaías 22:1–8a",
+      "title": "Um clamor vão aos montes por socorro",
       "series": "c"
      },
      {
@@ -8428,8 +8459,8 @@ export const LECTIONARY_GENERATED = {
       "title": "O amor de Deus, a constância de Cristo"
      },
      {
-      "ref": "Marcos 12:28–37",
-      "title": "a Amando a Deus e ao próximo S a l mo di á r io"
+      "ref": "Marcos 12:28–37a",
+      "title": "Amando a Deus e ao próximo S a l mo di á r io"
      },
      {
       "ref": "Salmo 90:1–6, 13–17",
@@ -8666,8 +8697,13 @@ export const LECTIONARY_GENERATED = {
    "sunday": [
     {
      "ref": "Josué 3:7–17",
-     "title": "Cruzando para a terra prometida c Miqueias 3:5–12 Juízo sobre os líderes corruptos",
+     "title": "Cruzando para a terra prometida",
      "series": "s"
+    },
+    {
+     "ref": "Miqueias 3:5–12",
+     "title": "Juízo sobre os líderes corruptos",
+     "series": "c"
     },
     {
      "ref": "Salmo 107:1–7, 33–37",
@@ -8862,8 +8898,8 @@ export const LECTIONARY_GENERATED = {
    "name": "s Josué 3:7–17 Cruzando para a terra prometida c Miqueias 3:5–12 Juízo sobre os líderes corruptos s Salmo 107:1–7, 33–37 Ação de graças por uma bela terra c Salmo 43 Envia a tua luz e a tua verdade 1 Tessalonicenses 2:9–13 O ensino do apóstolo Mateus 23:1–12 Humilhai-vos R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra s Josué 4:1–24 Outro relato da travessia c Jeremias 5:18–31 Profetas e sacerdotes que enganam 1 Tessalonicenses 2:13–20 Palavras à igreja Lucas 18:9–14 A oração do cobrador de impostos T e r ç a - f e i ra s Josué 6:1–16, 20 Jericó é conquistada c Lamentações 2:13–17 Quando os profetas veem visões falsas Atos 13:1–12 Paulo e Barnabé confrontam um falso profeta Mateus 15:1–9 Lábios que não representam o coração Q ua rta - f e i ra s Josué 10:12–14 O sol e a lua se detêm c Provérbios 16:21–33 O coração sábio e os lábios persuasivos Filipenses 1:18b–26 Cristo exaltado no corpo de Paulo Mateus 6:1–6 Praticando a fé sem ostentação S a l mo di á r io s Salmo 128 Tudo te irá bem c Salmo 5 Deus abençoa os justos 244 L e c i o n á r i o · A n o A Pr ópr io 27 Domingo entre 6 e 12 de novembro s série semicontínua · c série complementar",
    "sunday": [
     {
-     "ref": "Josué 24:1–3",
-     "title": "a, 14–25 Josué chama Israel para servir a Deus",
+     "ref": "Josué 24:1–3a, 14–25",
+     "title": "Josué chama Israel para servir a Deus",
      "series": "s"
     },
     {
@@ -8873,7 +8909,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Amós 5:18–24",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -9238,8 +9274,8 @@ export const LECTIONARY_GENERATED = {
       "series": "s"
      },
      {
-      "ref": "Salmo 95:1–7",
-      "title": "a Somos o povo do pasto de Deus T e m p o C o m u m 247",
+      "ref": "Salmo 95:1–7a",
+      "title": "Somos o povo do pasto de Deus T e m p o C o m u m 247",
       "series": "c"
      }
     ]
@@ -9285,8 +9321,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Salmo 95:1–7",
-     "title": "a Somos o povo do pasto de Deus",
+     "ref": "Salmo 95:1–7a",
+     "title": "Somos o povo do pasto de Deus",
      "series": "c"
     },
     {
@@ -9378,8 +9414,8 @@ export const LECTIONARY_GENERATED = {
       "series": "s"
      },
      {
-      "ref": "Salmo 95:1–7",
-      "title": "a Somos o povo do pasto de Deus T e m p o C o m u m 247",
+      "ref": "Salmo 95:1–7a",
+      "title": "Somos o povo do pasto de Deus T e m p o C o m u m 247",
       "series": "c"
      }
     ],
@@ -9403,7 +9439,7 @@ export const LECTIONARY_GENERATED = {
    "sunday": [
     {
      "ref": "Joel 2:1–2, 12–17",
-     "title": "ou"
+     "title": "Leitura designada"
     },
     {
      "ref": "Isaías 58:1–12",
@@ -9777,6 +9813,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "mon": [
      {
+      "ref": "Miqueias 4:1–5",
+      "title": "A promessa de paz"
+     },
+     {
       "ref": "Apocalipse 15:2–8",
       "title": "Uma liturgia de glória"
      },
@@ -9787,6 +9827,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "tue": [
      {
+      "ref": "Miqueias 4:6–13",
+      "title": "A promessa de restauração após o exílio"
+     },
+     {
       "ref": "Apocalipse 18:1–3",
       "title": "Caiu, caiu a grande Babilônia"
      },
@@ -9796,6 +9840,10 @@ export const LECTIONARY_GENERATED = {
      }
     ],
     "wed": [
+     {
+      "ref": "Miqueias 5:1–5a",
+      "title": "A promessa de um pastor"
+     },
      {
       "ref": "Apocalipse 18:4–10",
       "title": "Juízo sobre o orgulho humano"
@@ -9838,8 +9886,8 @@ export const LECTIONARY_GENERATED = {
      "title": "Justiça e paz"
     },
     {
-     "ref": "2 Pedro 3:8–15",
-     "title": "a Esperando pelo dia de Deus"
+     "ref": "2 Pedro 3:8–15a",
+     "title": "Esperando pelo dia de Deus"
     },
     {
      "ref": "Marcos 1:1–8",
@@ -10259,8 +10307,8 @@ export const LECTIONARY_GENERATED = {
       "title": "A conspiração contra Estêvão"
      },
      {
-      "ref": "Marcos 6:1–6",
-      "title": "a Não é este o carpinteiro? 2 7 de de z e m b r o"
+      "ref": "Marcos 6:1–6a",
+      "title": "Não é este o carpinteiro? 2 7 de de z e m b r o"
      },
      {
       "ref": "Êxodo 33:18–23",
@@ -10400,8 +10448,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Leitura designada"
      },
      {
-      "ref": "Apocalipse 21:1–6",
-      "title": "a"
+      "ref": "Apocalipse 21:1–6a",
+      "title": "Leitura designada"
      },
      {
       "ref": "Mateus 25:31–46",
@@ -10536,8 +10584,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Samuel chamado por Deus como profeta"
      },
      {
-      "ref": "Atos 9:10–19",
-      "title": "a Saulo é batizado"
+      "ref": "Atos 9:10–19a",
+      "title": "Saulo é batizado"
      },
      {
       "ref": "Lucas 5:1–11",
@@ -11410,6 +11458,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "tue": [
      {
+      "ref": "Miqueias 4:1–7",
+      "title": "Deus reúne os aflitos em uma nação forte"
+     },
+     {
       "ref": "2 Coríntios 1:12–19",
       "title": "Em Jesus Cristo, sempre um “sim”"
      },
@@ -11685,7 +11737,7 @@ export const LECTIONARY_GENERATED = {
     "wed": [
      {
       "ref": "Joel 2:1–2, 12–17",
-      "title": "ou"
+      "title": "Leitura designada"
      },
      {
       "ref": "Isaías 58:1–12",
@@ -11721,8 +11773,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "fri": [
      {
-      "ref": "Daniel 9:15–25",
-      "title": "a Um anjo fala a"
+      "ref": "Daniel 9:15–25a",
+      "title": "Um anjo fala a"
      },
      {
       "ref": "Daniel 2",
@@ -11739,8 +11791,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Deus perdoa o pecado"
      },
      {
-      "ref": "1 Pedro 3:8–18",
-      "title": "a Sobre o sofrimento"
+      "ref": "1 Pedro 3:8–18a",
+      "title": "Sobre o sofrimento"
      },
      {
       "ref": "Mateus 9:2–13",
@@ -11972,8 +12024,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "thu": [
      {
-      "ref": "Êxodo 19:1–9",
-      "title": "a Preparação para a entrega dos mandamentos"
+      "ref": "Êxodo 19:1–9a",
+      "title": "Preparação para a entrega dos mandamentos"
      },
      {
       "ref": "1 Pedro 2:4–10",
@@ -12425,8 +12477,8 @@ export const LECTIONARY_GENERATED = {
       "alternative": true
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo se submete ao sofrimento"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo se submete ao sofrimento"
      },
      {
       "ref": "Salmo 31:9–16",
@@ -12478,8 +12530,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Jesus fala de sua morte Quarta-f eira Santa"
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo é justificado por Deus"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo é justificado por Deus"
      },
      {
       "ref": "Salmo 70",
@@ -12680,8 +12732,8 @@ export const LECTIONARY_GENERATED = {
      "alternative": true
     },
     {
-     "ref": "Isaías 50:4–9",
-     "title": "a O servo se submete ao sofrimento"
+     "ref": "Isaías 50:4–9a",
+     "title": "O servo se submete ao sofrimento"
     },
     {
      "ref": "Salmo 31:9–16",
@@ -12856,8 +12908,8 @@ export const LECTIONARY_GENERATED = {
    "daily": {
     "mon": [
      {
-      "ref": "Jeremias 30:1–11",
-      "title": "a Deus salvará o povo"
+      "ref": "Jeremias 30:1–11a",
+      "title": "Deus salvará o povo"
      },
      {
       "ref": "1 João 3:11–16",
@@ -13014,6 +13066,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "wed": [
      {
+      "ref": "Miqueias 7:8–20",
+      "title": "Deus apascentará o povo"
+     },
+     {
       "ref": "1 João 4:1–6",
       "title": "Provando os espíritos"
      },
@@ -13162,8 +13218,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Uma luz para as nações"
      },
      {
-      "ref": "Atos 10:1–23",
-      "title": "a Cornélio e Pedro têm visões"
+      "ref": "Atos 10:1–23a",
+      "title": "Cornélio e Pedro têm visões"
      },
      {
       "ref": "Marcos 10:42–45",
@@ -13585,8 +13641,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Uma visão acerca do povo de Deus"
      },
      {
-      "ref": "Romanos 8:1–9",
-      "title": "a O Espírito é vida e paz"
+      "ref": "Romanos 8:1–9a",
+      "title": "O Espírito é vida e paz"
      },
      {
       "ref": "João 16:16–24",
@@ -14259,8 +14315,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "sat": [
      {
-      "ref": "1 Samuel 13:1–15",
-      "title": "a Saul desobedece a Deus",
+      "ref": "1 Samuel 13:1–15a",
+      "title": "Saul desobedece a Deus",
       "series": "s"
      },
      {
@@ -14528,7 +14584,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "1 Samuel 17:57–18:5, 10–16",
-     "title": "c",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -14543,7 +14599,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Salmo 133",
-     "title": "c",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -14745,7 +14801,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Lamentações 3:22–33",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -15174,8 +15230,8 @@ export const LECTIONARY_GENERATED = {
    "daily": {
     "mon": [
      {
-      "ref": "2 Samuel 6:6–12",
-      "title": "a O poder da arca",
+      "ref": "2 Samuel 6:6–12a",
+      "title": "O poder da arca",
       "series": "s"
      },
      {
@@ -15188,8 +15244,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Paulo é preso"
      },
      {
-      "ref": "Mateus 14:1–13",
-      "title": "a A morte de João Batista"
+      "ref": "Mateus 14:1–13a",
+      "title": "A morte de João Batista"
      }
     ],
     "tue": [
@@ -15345,8 +15401,8 @@ export const LECTIONARY_GENERATED = {
    "name": "s 2 Samuel 6:1–5, 12b–19 Davi dança diante da arca de Deus c Amós 7:7–15 O sinal do fio de prumo s Salmo 24 Entrará o Rei da glória c Salmo 85:8–13 Ouvi o que Deus está dizendo Efésios 1:3–14 Escolhido para viver em louvor a Deus Marcos 6:14–29 A morte de João Batista R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra s 2 Samuel 6:6–12a O poder da arca c Amós 5:1–9 Buscai-me e vivei Atos 21:27–39 Paulo é preso Mateus 14:1–13a A morte de João Batista T e r ç a - f e i ra s 2 Samuel 3:12–16 Davi reivindica sua esposa Mical c Amós 9:1–4 Deus perscruta o Israel rebelde Atos 23:12–35 Trama para matar Paulo Lucas 13:31–35 Jesus sobre a ameaça de Herodes: ide dizer a essa raposa T e m p o C o m u m 297 Q ua rta - f e i ra s 2 Samuel 6:16–23 Mical confronta Davi c Amós 9:11–15 Deus restaurará a sorte de Israel Efésios 3:1–6 O mistério é revelado Marcos 8:27–30 Alguns dizem que Jesus é João Batista S a l mo di á r io s Salmo 68:24–35 Temível é Deus no santuário c Salmo 142 Oração por libertação Pr ópr io 1 1 Domingo entre 17 e 23 de julho s série semicontínua · c série complementar",
    "sunday": [
     {
-     "ref": "2 Samuel 7:1–14",
-     "title": "a A promessa de Deus a Davi",
+     "ref": "2 Samuel 7:1–14a",
+     "title": "A promessa de Deus a Davi",
      "series": "s"
     },
     {
@@ -15623,8 +15679,8 @@ export const LECTIONARY_GENERATED = {
       "series": "s"
      },
      {
-      "ref": "Isaías 25:6–10",
-      "title": "a O banquete para todos os povos",
+      "ref": "Isaías 25:6–10a",
+      "title": "O banquete para todos os povos",
       "series": "c"
      },
      {
@@ -15648,8 +15704,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "thu": [
      {
-      "ref": "Êxodo 32:19–26",
-      "title": "a A ira por causa do bezerro de ouro",
+      "ref": "Êxodo 32:19–26a",
+      "title": "A ira por causa do bezerro de ouro",
       "series": "s"
      },
      {
@@ -16360,8 +16416,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Josué 24:1–2",
-     "title": "a, 14–18 Servi ao Senhor",
+     "ref": "Josué 24:1–2a, 14–18",
+     "title": "Servi ao Senhor",
      "series": "c"
     },
     {
@@ -16764,8 +16820,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Isaías 35:4–7",
-     "title": "a Deus vem com cura",
+     "ref": "Isaías 35:4–7a",
+     "title": "Deus vem com cura",
      "series": "c"
     },
     {
@@ -16966,8 +17022,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Isaías 50:4–9",
-     "title": "a O servo é justificado por Deus",
+     "ref": "Isaías 50:4–9a",
+     "title": "O servo é justificado por Deus",
      "series": "c"
     },
     {
@@ -17179,7 +17235,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Jeremias 11:18–20",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -18457,8 +18513,13 @@ export const LECTIONARY_GENERATED = {
     "wed": [
      {
       "ref": "Rute 3:8–18",
-      "title": "Rute deita-se junto a Boaz c Miqueias 6:1–8 Praticai a justiça",
+      "title": "Rute deita-se junto a Boaz",
       "series": "s"
+     },
+     {
+      "ref": "Miqueias 6:1–8",
+      "title": "Praticai a justiça",
+      "series": "c"
      },
      {
       "ref": "Atos 6:1–7",
@@ -19119,7 +19180,7 @@ export const LECTIONARY_GENERATED = {
    "sunday": [
     {
      "ref": "Joel 2:1–2, 12–17",
-     "title": "ou"
+     "title": "Leitura designada"
     },
     {
      "ref": "Isaías 58:1–12",
@@ -19451,8 +19512,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Voltai para mim"
      },
      {
-      "ref": "Filipenses 1:12–18",
-      "title": "a Proclamando a Cristo"
+      "ref": "Filipenses 1:12–18a",
+      "title": "Proclamando a Cristo"
      },
      {
       "ref": "Lucas 1:57–66",
@@ -19740,6 +19801,10 @@ export const LECTIONARY_GENERATED = {
     ],
     "wed": [
      {
+      "ref": "Miqueias 4:8–13",
+      "title": "Deus debulhará o povo"
+     },
+     {
       "ref": "2 Timóteo 4:1–5",
       "title": "Proclamai a mensagem com perseverança"
      },
@@ -19790,8 +19855,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Pedro ressuscita Tabita em Jope"
      },
      {
-      "ref": "Marcos 6:1–6",
-      "title": "a Jesus e sua família em Nazaré S a l mo di á r io"
+      "ref": "Marcos 6:1–6a",
+      "title": "Jesus e sua família em Nazaré S a l mo di á r io"
      },
      {
       "ref": "Salmo 80:1–7",
@@ -19818,6 +19883,10 @@ export const LECTIONARY_GENERATED = {
    "key": "c-adv-4",
    "name": "Sofonias 3:14–20 Alegrai-vos em Deus Isaías 12:2–6 No meio de vós está o Santo de Israel Filipenses 4:4–7 Alegrai-vos: o Senhor está próximo Lucas 3:7–18 Vem aquele que é mais poderoso R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra Números 16:1–19 O grupo de Corá se rebela Hebreus 13:7–17 Respeitai os vossos líderes Mateus 3:7–12 A pregação de João T e r ç a - f e i ra Números 16:20–35 Deus destrói o grupo de Corá Atos 28:23–24, (25–28) 29–31 Paulo prega em Roma João 1:19–23 A pregação de João Q ua rta - f e i ra Miqueias 4:8–13 Deus debulhará o povo 2 Timóteo 4:1–5 Proclamai a mensagem com perseverança Lucas 7:31–35 O Messias e João C â n t ic o di á r io Isaías 11:1–9 Um governante traz justiça e paz A d v e n t o 327 4º Doming o d o Adv ento",
    "sunday": [
+    {
+     "ref": "Miqueias 5:2–5a",
+     "title": "De Belém vem um governante"
+    },
     {
      "ref": "Lucas 1:46b–55",
      "title": "Minha alma engrandece o Senhor ou"
@@ -19880,7 +19949,11 @@ export const LECTIONARY_GENERATED = {
      },
      {
       "ref": "Salmo 113",
-      "title": "Louvado seja Deus, que exalta os humildes 328 L e c i o n á r i o · A n o C N a ta l Dias em tor no d o Natal Para os dias de semana de 22 de dezembro a 2 de janeiro que não forem observados como domingo ou festa. 22 de de z e m b r o Miqueias 4:1–5 Uma promessa de paz"
+      "title": "Louvado seja Deus, que exalta os humildes 328 L e c i o n á r i o · A n o C N a ta l Dias em tor no d o Natal Para os dias de semana de 22 de dezembro a 2 de janeiro que não forem observados como domingo ou festa. 22 de de z e m b r o"
+     },
+     {
+      "ref": "Miqueias 4:1–5",
+      "title": "Uma promessa de paz"
      },
      {
       "ref": "Efésios 2:11–22",
@@ -19888,7 +19961,11 @@ export const LECTIONARY_GENERATED = {
      },
      {
       "ref": "Mateus 1:1–17",
-      "title": "Genealogia de Jesus 2 3 de de z e m b r o Miqueias 4:6–8 O domínio retornará a Sião"
+      "title": "Genealogia de Jesus 2 3 de de z e m b r o"
+     },
+     {
+      "ref": "Miqueias 4:6–8",
+      "title": "O domínio retornará a Sião"
      },
      {
       "ref": "2 Pedro 1:16–21",
@@ -19896,7 +19973,11 @@ export const LECTIONARY_GENERATED = {
      },
      {
       "ref": "Lucas 3:23–38",
-      "title": "Genealogia de Jesus 2 4 de de z e m b r o ( m a n h ã ) Miqueias 6:6–8 Adorai a Deus com justiça, bondade e humildade"
+      "title": "Genealogia de Jesus 2 4 de de z e m b r o ( m a n h ã )"
+     },
+     {
+      "ref": "Miqueias 6:6–8",
+      "title": "Adorai a Deus com justiça, bondade e humildade"
      },
      {
       "ref": "Hebreus 10:5–10",
@@ -20112,8 +20193,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Leitura designada"
      },
      {
-      "ref": "Apocalipse 21:1–6",
-      "title": "a"
+      "ref": "Apocalipse 21:1–6a",
+      "title": "Leitura designada"
      },
      {
       "ref": "Mateus 25:31–46",
@@ -20577,8 +20658,8 @@ export const LECTIONARY_GENERATED = {
      "title": "A lei revive a alma"
     },
     {
-     "ref": "1 Coríntios 12:12–31",
-     "title": "a Vós sois o corpo de Cristo"
+     "ref": "1 Coríntios 12:12–31a",
+     "title": "Vós sois o corpo de Cristo"
     },
     {
      "ref": "Lucas 4:14–21",
@@ -20592,8 +20673,8 @@ export const LECTIONARY_GENERATED = {
       "title": "O rolo é lido no templo"
      },
      {
-      "ref": "2 Coríntios 7:2–13",
-      "title": "a A tristeza leva ao arrependimento"
+      "ref": "2 Coríntios 7:2–13a",
+      "title": "A tristeza leva ao arrependimento"
      },
      {
       "ref": "Mateus 5:1–12",
@@ -20670,8 +20751,8 @@ export const LECTIONARY_GENERATED = {
       "title": "O amor vem de Deus"
      },
      {
-      "ref": "Marcos 6:1–6",
-      "title": "a Não é este o carpinteiro? S a l mo di á r io"
+      "ref": "Marcos 6:1–6a",
+      "title": "Não é este o carpinteiro? S a l mo di á r io"
      },
      {
       "ref": "Salmo 71:1–6",
@@ -21190,8 +21271,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Amai-vos uns aos outros e vivei na luz"
      },
      {
-      "ref": "João 16:1–4",
-      "title": "a Lembrando as palavras de Jesus S a l mo di á r io"
+      "ref": "João 16:1–4a",
+      "title": "Lembrando as palavras de Jesus S a l mo di á r io"
      },
      {
       "ref": "Salmo 92:1–4, 12–15",
@@ -21377,8 +21458,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Ofertas para a tenda do encontro"
      },
      {
-      "ref": "Atos 10:9–23",
-      "title": "a A visão de Pedro do que Deus torna puro"
+      "ref": "Atos 10:9–23a",
+      "title": "A visão de Pedro do que Deus torna puro"
      },
      {
       "ref": "Mateus 17:1–9",
@@ -21406,7 +21487,7 @@ export const LECTIONARY_GENERATED = {
     "wed": [
      {
       "ref": "Joel 2:1–2, 12–17",
-      "title": "ou"
+      "title": "Leitura designada"
      },
      {
       "ref": "Isaías 58:1–12",
@@ -22136,8 +22217,8 @@ export const LECTIONARY_GENERATED = {
       "title": "A entrada nos últimos dias L i t ur g i a da P a i xão"
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo se submete ao sofrimento"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo se submete ao sofrimento"
      },
      {
       "ref": "Salmo 31:9–16",
@@ -22189,8 +22270,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Jesus fala de sua morte S e m a n a S a n ta 349 Quarta-f eira Santa"
      },
      {
-      "ref": "Isaías 50:4–9",
-      "title": "a O servo é justificado por Deus"
+      "ref": "Isaías 50:4–9a",
+      "title": "O servo é justificado por Deus"
      },
      {
       "ref": "Salmo 70",
@@ -22386,8 +22467,8 @@ export const LECTIONARY_GENERATED = {
      "title": "A entrada nos últimos dias L i t ur g i a da P a i xão"
     },
     {
-     "ref": "Isaías 50:4–9",
-     "title": "a O servo se submete ao sofrimento"
+     "ref": "Isaías 50:4–9a",
+     "title": "O servo se submete ao sofrimento"
     },
     {
      "ref": "Salmo 31:9–16",
@@ -23175,8 +23256,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "sat": [
      {
-      "ref": "2 Reis 2:1–15",
-      "title": "a O espírito sobre Elias e Eliseu"
+      "ref": "2 Reis 2:1–15a",
+      "title": "O espírito sobre Elias e Eliseu"
      },
      {
       "ref": "Romanos 8:9–13",
@@ -23407,8 +23488,8 @@ export const LECTIONARY_GENERATED = {
       "title": "—6:4 Uma família santa"
      },
      {
-      "ref": "João 18:33–38",
-      "title": "a Pilatos pergunta: que é a verdade? S a l mo di á r io"
+      "ref": "João 18:33–38a",
+      "title": "Pilatos pergunta: que é a verdade? S a l mo di á r io"
      },
      {
       "ref": "Salmo 124",
@@ -23453,8 +23534,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Amai-vos uns aos outros e vivei na luz"
      },
      {
-      "ref": "João 16:1–4",
-      "title": "a Lembrando as palavras de Jesus S a l mo di á r io"
+      "ref": "João 16:1–4a",
+      "title": "Lembrando as palavras de Jesus S a l mo di á r io"
      },
      {
       "ref": "Salmo 92:1–4, 12–15",
@@ -23888,8 +23969,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Paulo e as colunas da igreja"
      },
      {
-      "ref": "Lucas 8:40–42",
-      "title": "a, (42b–48) 49–56 A filha de Jairo ressuscitada"
+      "ref": "Lucas 8:40–42a, (42b–48)",
+      "title": "49–56 A filha de Jairo ressuscitada"
      }
     ],
     "tue": [
@@ -24320,8 +24401,8 @@ export const LECTIONARY_GENERATED = {
       "title": "A salvação oferecida a todos"
      },
      {
-      "ref": "Lucas 9:37–43",
-      "title": "a Jesus cura um menino endemoninhado S a l mo di á r io"
+      "ref": "Lucas 9:37–43a",
+      "title": "Jesus cura um menino endemoninhado S a l mo di á r io"
      },
      {
       "ref": "Salmo 59",
@@ -24676,8 +24757,8 @@ export const LECTIONARY_GENERATED = {
    "daily": {
     "mon": [
      {
-      "ref": "2 Reis 5:15–19",
-      "title": "a Naamã busca recompensar Eliseu",
+      "ref": "2 Reis 5:15–19a",
+      "title": "Naamã busca recompensar Eliseu",
       "series": "s"
      },
      {
@@ -25054,8 +25135,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Gênesis 18:1–10",
-     "title": "a A hospitalidade de Abraão e Sara",
+     "ref": "Gênesis 18:1–10a",
+     "title": "A hospitalidade de Abraão e Sara",
      "series": "c"
     },
     {
@@ -26272,7 +26353,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Provérbios 25:6–7",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -26579,8 +26660,8 @@ export const LECTIONARY_GENERATED = {
       "series": "c"
      },
      {
-      "ref": "2 Pedro 2:1–10",
-      "title": "a Deus julga e resgata"
+      "ref": "2 Pedro 2:1–10a",
+      "title": "Deus julga e resgata"
      },
      {
       "ref": "Lucas 14:34–35",
@@ -27074,8 +27155,8 @@ export const LECTIONARY_GENERATED = {
    "name": "s Jeremias 8:18–9:1 Jeremias lamenta por Judá c Amós 8:4–7 Aqueles que pisoteiam os necessitados s Salmo 79:1–9 Livra-nos e perdoa os nossos pecados c Salmo 113 O nosso Deus levanta os pobres 1 Timóteo 2:1–7 Um Deus, um mediador Lucas 16:1–13 Servindo a Deus ou à riqueza 384 L e c i o n á r i o · A n o C R e f l e x ã o s o b r e o D o m i n g o S e g un da - f e i ra s Jeremias 9:12–26 Um povo disperso chora c Provérbios 14:12–31 Oprimindo os pobres Atos 4:1–12 A salvação por meio de Jesus Cristo Mateus 6:24 Servindo a dois senhores T e r ç a - f e i ra s Jeremias 10:1–16 A idolatria traz ruína a Israel c Provérbios 17:1–5 Oprimindo os pobres 1 Coríntios 9:19–23 Um servo do evangelho Mateus 18:23–35 Parábola do servo que não perdoa Q ua rta - f e i ra s Jeremias 10:17–25 Preparai-vos para o exílio que se aproxima c Provérbios 21:10–16 Ouvidos fechados ao clamor do pobre 1 Timóteo 4:6–16 Instrução sobre a liderança pastoral Lucas 20:45—21:4 O rico e o pobre S a l mo di á r io s Salmo 106:40–48 Deus se lembrou da aliança c Salmo 12 Socorro para os pobres Pr ópr io 21 Domingo entre 25 de setembro e 1º de outubro s série semicontínua · c série complementar",
    "sunday": [
     {
-     "ref": "Jeremias 32:1–3",
-     "title": "a, 6–15 Jeremias compra um campo",
+     "ref": "Jeremias 32:1–3a, 6–15",
+     "title": "Jeremias compra um campo",
      "series": "s"
     },
     {
@@ -27366,8 +27447,8 @@ export const LECTIONARY_GENERATED = {
       "title": "Ensinar a viver na verdade"
      },
      {
-      "ref": "Lucas 9:37–43",
-      "title": "a Maravilhados com a grandeza de Deus S a l mo di á r io"
+      "ref": "Lucas 9:37–43a",
+      "title": "Maravilhados com a grandeza de Deus S a l mo di á r io"
      },
      {
       "ref": "Salmo 137",
@@ -27519,8 +27600,8 @@ export const LECTIONARY_GENERATED = {
       "series": "s"
      },
      {
-      "ref": "2 Reis 5:15–19",
-      "title": "a Naamã busca recompensar Eliseu",
+      "ref": "2 Reis 5:15–19a",
+      "title": "Naamã busca recompensar Eliseu",
       "series": "c"
      },
      {
@@ -27898,7 +27979,7 @@ export const LECTIONARY_GENERATED = {
     },
     {
      "ref": "Jeremias 14:7–10, 19–22",
-     "title": "s",
+     "title": "Leitura designada",
      "alternative": true
     },
     {
@@ -28235,8 +28316,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "sat": [
      {
-      "ref": "Ageu 1:1–15",
-      "title": "a Ordem de reconstruir o templo",
+      "ref": "Ageu 1:1–15a",
+      "title": "Ordem de reconstruir o templo",
       "series": "s"
      },
      {
@@ -28301,8 +28382,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Jó 19:23–27",
-     "title": "a Eu sei que o meu Redentor vive",
+     "ref": "Jó 19:23–27a",
+     "title": "Eu sei que o meu Redentor vive",
      "series": "c"
     },
     {
@@ -28422,8 +28503,8 @@ export const LECTIONARY_GENERATED = {
     ],
     "fri": [
      {
-      "ref": "Isaías 59:1–15",
-      "title": "a O pecado cria barreiras",
+      "ref": "Isaías 59:1–15a",
+      "title": "O pecado cria barreiras",
       "series": "s"
      },
      {
@@ -28508,8 +28589,8 @@ export const LECTIONARY_GENERATED = {
      "series": "s"
     },
     {
-     "ref": "Malaquias 4:1–2",
-     "title": "a Um dia de cura para os justos",
+     "ref": "Malaquias 4:1–2a",
+     "title": "Um dia de cura para os justos",
      "series": "c"
     },
     {
@@ -28826,7 +28907,7 @@ export const LECTIONARY_GENERATED = {
    "sunday": [
     {
      "ref": "Joel 2:1–2, 12–17",
-     "title": "ou"
+     "title": "Leitura designada"
     },
     {
      "ref": "Isaías 58:1–12",
@@ -29143,7 +29224,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Gálatas 4:4–7",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Filipenses 2:5–11",
@@ -29239,7 +29320,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 89:1–29",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 89:1–4, 26–29",
@@ -29285,7 +29366,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 2",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 2:7–10",
@@ -29298,7 +29379,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Marcos 1:1–15",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Marcos 16:15–20",
@@ -29334,8 +29415,8 @@ export const LECTIONARY_GENERATED = {
     "title": "Deus é o auxílio dos necessitados"
    },
    {
-    "ref": "Romanos 12:9–16",
-    "title": "b Alegrai-vos com os que se alegram"
+    "ref": "Romanos 12:9–16b",
+    "title": "Alegrai-vos com os que se alegram"
    },
    {
     "ref": "Lucas 1:39–57",
@@ -29367,7 +29448,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 85",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 85:7–13",
@@ -29440,7 +29521,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 34",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 34:1–9",
@@ -29463,7 +29544,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 91",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 91:1–4",
@@ -29527,7 +29608,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 103",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 103:19–22",
@@ -29550,7 +29631,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 147",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 147:1–7",
@@ -29568,8 +29649,8 @@ export const LECTIONARY_GENERATED = {
   ],
   "9-23": [
    {
-    "ref": "Atos 15:12–22",
-    "title": "a"
+    "ref": "Atos 15:12–22a",
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 1",
@@ -29627,7 +29708,7 @@ export const LECTIONARY_GENERATED = {
    },
    {
     "ref": "Salmo 92",
-    "title": "ou"
+    "title": "Leitura designada"
    },
    {
     "ref": "Salmo 92:1–4, 11–14",
@@ -29698,5 +29779,645 @@ export const LECTIONARY_GENERATED = {
     "title": "Leitura designada"
    }
   ]
- }
+ },
+ "commons": {
+  "comum-martires": {
+   "id": "comum-martires",
+   "name": "Comum dos Mártires",
+   "readings": [
+    {
+     "ref": "Jeremias 11:18–20",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 3",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 16:24–27",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-missionarios": {
+   "id": "comum-missionarios",
+   "name": "Comum dos Missionários",
+   "readings": [
+    {
+     "ref": "Isaías 61:1–3",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 96:7–13",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "2 Coríntios 4:5–10",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 28:16–20",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-pastores": {
+   "id": "comum-pastores",
+   "name": "Comum dos Pastores / Bispos",
+   "readings": [
+    {
+     "ref": "Ezequiel 34:11–16",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 99",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Timóteo 3:15–16",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Marcos 4:26–32",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-teologos": {
+   "id": "comum-teologos",
+   "name": "Comum dos Teólogos, Mestres e Confessores",
+   "readings": [
+    {
+     "ref": "Sabedoria 7:7–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 37:30–35",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Coríntios 2:6–13",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 13:51–52",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-comunidade": {
+   "id": "comum-comunidade",
+   "name": "Comum dos Membros de Comunidade ou Ordem Religiosa",
+   "readings": [
+    {
+     "ref": "Provérbios 10:27–32",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 1",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 6:20–23a",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 João 2:15–17",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-reformadores": {
+   "id": "comum-reformadores",
+   "name": "Comum dos Reformadores",
+   "readings": [
+    {
+     "ref": "Êxodo 3:1–15",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 31",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Colossenses 3:12–17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 12:46–50",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "comum-santos": {
+   "id": "comum-santos",
+   "name": "Comum dos Santos e Santas",
+   "readings": [
+    {
+     "ref": "Eclesiástico 51:10–12",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 131",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Filipenses 3:7–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 25:1–13",
+     "title": "Leitura designada"
+    }
+   ]
+  }
+ },
+ "occasions": {
+  "ocas-almas": {
+   "id": "ocas-almas",
+   "name": "Memorial de Todas as Almas",
+   "note": "2 de novembro",
+   "readings": [
+    {
+     "ref": "Sabedoria 3:1–9",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Isaías 25:6–9",
+     "title": "Leitura designada",
+     "alternative": true
+    },
+    {
+     "ref": "Salmo 130",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 116:10–17",
+     "title": "Leitura designada",
+     "alternative": true
+    },
+    {
+     "ref": "1 Tessalonicenses 4:13–18",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Coríntios 15:50–58",
+     "title": "Leitura designada",
+     "alternative": true
+    },
+    {
+     "ref": "João 5:24–27",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-natividade-maria": {
+   "id": "ocas-natividade-maria",
+   "name": "Natividade de Maria, mãe de nosso Senhor",
+   "note": "8 de setembro",
+   "readings": [
+    {
+     "ref": "Miqueias 5:2–4",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 45:11–18",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Romanos 8:28–30",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 1:18–23",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-temporas-dezembro": {
+   "id": "ocas-temporas-dezembro",
+   "name": "Dias de Têmporas de dezembro",
+   "note": "Depois do Dia de Santa Luzia",
+   "readings": [
+    {
+     "ref": "Isaías 52:7–10",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 96",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Atos 1:8–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 10:1–9",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-temporas-quaresma": {
+   "id": "ocas-temporas-quaresma",
+   "name": "Dias de Têmporas da Quaresma",
+   "note": "Depois do 1º Domingo da Quaresma",
+   "readings": [
+    {
+     "ref": "Ezequiel 34:11–16",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 23",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Pedro 5:1–11",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "João 21:15–17",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-temporas-pentecostes": {
+   "id": "ocas-temporas-pentecostes",
+   "name": "Dias de Têmporas de Pentecostes",
+   "note": "Depois do Dia de Pentecostes",
+   "readings": [
+    {
+     "ref": "Jeremias 1:4–10",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 84",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Atos 13:44–49",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 4:16–21",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-temporas-setembro": {
+   "id": "ocas-temporas-setembro",
+   "name": "Dias de Têmporas de setembro",
+   "note": "Depois do Dia da Santa Cruz",
+   "readings": [
+    {
+     "ref": "Isaías 6:1–8",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 122",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Coríntios 3:10–17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 12:35–43",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-rogacao": {
+   "id": "ocas-rogacao",
+   "name": "Dias de Rogação",
+   "note": "Os três dias antes da Ascensão",
+   "readings": [
+    {
+     "ref": "Deuteronômio 11:10–15",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 104:13–23",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Timóteo 6:6–10, 17–19",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 12:13–21",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-acao-gracas-a": {
+   "id": "ocas-acao-gracas-a",
+   "name": "Dia de Ação de Graças — Ano A",
+   "readings": [
+    {
+     "ref": "Deuteronômio 8:7–18",
+     "title": "Uma terra de riachos"
+    },
+    {
+     "ref": "Salmo 65",
+     "title": "Coroas o ano com a tua bondade"
+    },
+    {
+     "ref": "2 Coríntios 9:6–15",
+     "title": "Deus concede todas as bênçãos em abundância"
+    },
+    {
+     "ref": "Lucas 17:11–19",
+     "title": "Aquele que foi curado dá graças a Deus"
+    }
+   ]
+  },
+  "ocas-acao-gracas-b": {
+   "id": "ocas-acao-gracas-b",
+   "name": "Dia de Ação de Graças — Ano B",
+   "readings": [
+    {
+     "ref": "Joel 2:21–27",
+     "title": "A promessa de restaurar Jerusalém"
+    },
+    {
+     "ref": "Salmo 126",
+     "title": "Semeando com lágrimas, colhendo com alegria"
+    },
+    {
+     "ref": "1 Timóteo 2:1–7",
+     "title": "Dai graças"
+    },
+    {
+     "ref": "Mateus 6:25–33",
+     "title": "Deus cuidará de todas as nossas necessidades"
+    }
+   ]
+  },
+  "ocas-acao-gracas-c": {
+   "id": "ocas-acao-gracas-c",
+   "name": "Dia de Ação de Graças — Ano C",
+   "readings": [
+    {
+     "ref": "Deuteronômio 26:1–11",
+     "title": "A oferta dos primeiros frutos"
+    },
+    {
+     "ref": "Salmo 100",
+     "title": "Entrai pelas portas de Deus com ações de graças"
+    },
+    {
+     "ref": "Filipenses 4:4–9",
+     "title": "Não vos preocupeis com coisa alguma"
+    },
+    {
+     "ref": "João 6:25–35",
+     "title": "Jesus é o pão da vida"
+    }
+   ]
+  },
+  "ocas-colheita": {
+   "id": "ocas-colheita",
+   "name": "Ação de Graças pela Colheita",
+   "readings": [
+    {
+     "ref": "Deuteronômio 26:1–11",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 65",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "2 Coríntios 9:6–15",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 12:16–30",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-paz": {
+   "id": "ocas-paz",
+   "name": "Pela Paz",
+   "readings": [
+    {
+     "ref": "Miqueias 4:1–5",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 85:7–13",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Efésios 2:13–18",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "João 14:23–29",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-missao": {
+   "id": "ocas-missao",
+   "name": "Pela Missão da Igreja",
+   "readings": [
+    {
+     "ref": "Isaías 49:1–6",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 67",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Atos 13:44–49",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 10:1–9",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-unidade": {
+   "id": "ocas-unidade",
+   "name": "Pela Unidade da Igreja",
+   "readings": [
+    {
+     "ref": "Isaías 35:1–10",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 122",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "1 Coríntios 1:10–17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "João 17:15–23",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  "ocas-justica-social": {
+   "id": "ocas-justica-social",
+   "name": "Pela Justiça Social",
+   "readings": [
+    {
+     "ref": "Amós 5:18–24",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 72:1–4, 12–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Tiago 2:1–9, 14–17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 25:31–46",
+     "title": "Leitura designada"
+    }
+   ]
+  }
+ },
+ "oAntiphons": [
+  {
+   "day": 17,
+   "name": "Ó Sabedoria",
+   "readings": [
+    {
+     "ref": "Gênesis 49:2, 8–10",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 72:1–4, 7–8, 17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 1:1–17",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 18,
+   "name": "Ó Senhor do Poder",
+   "readings": [
+    {
+     "ref": "Jeremias 23:5–8",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 72:1–2, 12–13, 18–19",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Mateus 1:18–25",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 19,
+   "name": "Ó Raiz de Jessé",
+   "readings": [
+    {
+     "ref": "Juízes 13:2–7, 24–25",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 71:3–6, 16–17",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 1:5–25",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 20,
+   "name": "Ó Chave de Davi",
+   "readings": [
+    {
+     "ref": "Isaías 7:10–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 24:1–6",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 1:26–38",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 21,
+   "name": "Ó Sol Nascente",
+   "readings": [
+    {
+     "ref": "Cântico dos Cânticos 2:8–14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Sofonias 3:14–18a",
+     "title": "Leitura designada",
+     "alternative": true
+    },
+    {
+     "ref": "Salmo 33:2–3, 11–12, 20–21",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 1:39–45",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 22,
+   "name": "Ó Desejado das Nações",
+   "readings": [
+    {
+     "ref": "1 Samuel 1:24–28",
+     "title": "Leitura designada",
+     "series": "s"
+    },
+    {
+     "ref": "1 Samuel 2:1, 4–8",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 1:46–56",
+     "title": "Leitura designada"
+    }
+   ]
+  },
+  {
+   "day": 23,
+   "name": "Ó Emanuel",
+   "readings": [
+    {
+     "ref": "Malaquias 3:1–4, 23–24",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Salmo 25:4–5, 8–10, 14",
+     "title": "Leitura designada"
+    },
+    {
+     "ref": "Lucas 1:57–66",
+     "title": "Leitura designada"
+    }
+   ]
+  }
+ ]
 } as const;

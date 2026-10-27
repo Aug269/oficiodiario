@@ -44,6 +44,16 @@ async function renderApp(): Promise<HTMLElement> {
   return container;
 }
 
+async function waitForText(container: HTMLElement, text: string, tries = 20): Promise<void> {
+  for (let i = 0; i < tries; i += 1) {
+    if ((container.textContent ?? '').includes(text)) return;
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    });
+  }
+  throw new Error(`texto \"${text}\" não apareceu após ${tries} tentativas`);
+}
+
 function clickByText(container: HTMLElement, text: string) {
   const button = [...container.querySelectorAll('button')].find((b) =>
     (b.textContent ?? '').includes(text),
@@ -85,6 +95,27 @@ describe('montagem do aplicativo (smoke test)', () => {
     expect(container.textContent).toContain('2075');
     expect(container.textContent).toContain('2026');
     expect(container.textContent).toContain('Próprio');
+  });
+
+  it('navega para Comuns e Ocasiões e mostra os três blocos do lecionário', async () => {
+    const container = await renderApp();
+    clickByText(container, 'Ocasiões');
+    expect(container.textContent).toContain('Comuns e Ocasiões');
+    // Aguarda o carregamento assíncrono do chunk do lecionário.
+    await waitForText(container, 'Comum dos Mártires');
+    clickByText(container, 'O Antifonas');
+    expect(container.textContent).toContain('Ó Emanuel');
+    expect(container.textContent).toContain('23 de dezembro');
+    clickByText(container, 'Ocasiões Especiais');
+    expect(container.textContent).toContain('Pela Justiça Social');
+  });
+
+  it('exibe o Credo Apostólico na visão de Famílias e Indivíduos', async () => {
+    const container = await renderApp();
+    clickByText(container, 'Famílias');
+    clickByText(container, 'Credo Apostólico');
+    expect(container.textContent).toContain('Creio em Deus Pai Todo-Poderoso');
+    expect(container.textContent).toContain('Comunhão dos Santos');
   });
 
   it('alterna para o catálogo de coletas com busca funcional', async () => {
