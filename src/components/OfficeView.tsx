@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CanonicalHour, LiturgicalItem } from '../types/liturgy';
 import { LiturgicalDayInfo } from '../services/liturgicalCalendar';
 import { ALL_COLLECTS } from '../data/collectsData';
-import { getLectionaryForDay, LectionaryDay } from '../data/lectionaryData';
+import { getTodayLectionary } from '../data/lectionaryData';
 import { getScriptureText, ScriptureLookupResult } from '../services/bibleService';
 import { SilenceTimer } from './SilenceTimer';
 import { BookOpen, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
@@ -21,35 +21,30 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
   const [expandedReading, setExpandedReading] = useState<string | null>(null);
   const [scriptureTexts, setScriptureTexts] = useState<Record<string, ScriptureLookupResult>>({});
   const [loadingReading, setLoadingReading] = useState<string | null>(null);
-  const [lectionary, setLectionary] = useState<LectionaryDay | null>(null);
 
-  // Leituras do dia pelo Lecionário Comum Revisado Expandido (gerado do livro REB).
-  // O acervo completo é carregado sob demanda (chunk separado, offline pelo SW).
-  useEffect(() => {
-    let cancelled = false;
-    getLectionaryForDay(liturgicalInfo).then((result) => {
-      if (!cancelled) setLectionary(result);
-    });
-    return () => {
-      cancelled = true;
-    };
-  }, [liturgicalInfo]);
+  // Today's lectionary readings based on cycle and season
+  const lectionary = getTodayLectionary(
+    liturgicalInfo.cycle,
+    liturgicalInfo.season,
+    liturgicalInfo.proprioNumber,
+    liturgicalInfo.date.getDay()
+  );
 
   // Today's specific collect
   const dayCollect = ALL_COLLECTS.find(c => c.id === liturgicalInfo.collectId) ||
     ALL_COLLECTS.find(c => c.id === 'col-tc-proprio-25') ||
     ALL_COLLECTS[0];
 
-  const loadScripture = async (cacheKey: string, ref: string) => {
-    if (expandedReading === cacheKey) {
+  const loadScripture = async (ref: string) => {
+    if (expandedReading === ref) {
       setExpandedReading(null);
       return;
     }
-    setExpandedReading(cacheKey);
-    if (!scriptureTexts[cacheKey]) {
-      setLoadingReading(cacheKey);
+    setExpandedReading(ref);
+    if (!scriptureTexts[ref]) {
+      setLoadingReading(ref);
       const res = await getScriptureText(ref);
-      setScriptureTexts(prev => ({ ...prev, [cacheKey]: res }));
+      setScriptureTexts(prev => ({ ...prev, [ref]: res }));
       setLoadingReading(null);
     }
   };
@@ -212,7 +207,7 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
               <div className="flex items-center gap-2">
                 <BookOpen className="w-5 h-5 text-[#4a153b] dark:text-rose-300" />
                 <h3 className="font-display font-bold text-xl text-[#4a153b] dark:text-rose-200">
-                  Lecionário do Dia{lectionary ? ` — ${lectionary.dayType}` : ''}
+                  Lecionário do Dia — {lectionary.dayType}
                 </h3>
               </div>
               <span className="text-xs font-sans text-stone-500">Ano {liturgicalInfo.cycle}</span>
@@ -221,26 +216,19 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
               Toque em qualquer leitura para abrir o texto bíblico integral em português para a sua meditação:
             </p>
 
-            {!lectionary && (
-              <div className="py-8 text-center text-sm font-sans text-stone-500">
-                Carregando o lecionário do Ano {liturgicalInfo.cycle}…
-              </div>
-            )}
-
             <div className="space-y-3">
-              {lectionary?.readings.map((reading, index) => {
-                const cacheKey = `${reading.ref}#${index}`;
-                const isExpanded = expandedReading === cacheKey;
-                const cachedData = scriptureTexts[cacheKey];
-                const isLoading = loadingReading === cacheKey;
+              {lectionary.readings.map(reading => {
+                const isExpanded = expandedReading === reading.ref;
+                const cachedData = scriptureTexts[reading.ref];
+                const isLoading = loadingReading === reading.ref;
 
                 return (
                   <div
-                    key={cacheKey}
+                    key={reading.ref}
                     className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 overflow-hidden transition-all shadow-xs"
                   >
                     <button
-                      onClick={() => loadScripture(cacheKey, reading.ref)}
+                      onClick={() => loadScripture(reading.ref)}
                       className="w-full flex items-center justify-between p-4 text-left hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors"
                     >
                       <div>
@@ -271,9 +259,7 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
                               {cachedData.text}
                             </p>
                             <div className="mt-3 text-right text-xs font-sans text-stone-400 italic">
-                              {cachedData.source === 'local' && 'Texto bíblico embutido · disponível offline'}
-                              {cachedData.source === 'online' && 'Bíblia Sagrada · Tradução em Português (online)'}
-                              {cachedData.source === 'simulated' && 'Referência do Lecionário REB · texto offline indisponível no momento'}
+                              Bíblia Sagrada · Tradução em Português
                             </div>
                           </div>
                         ) : null}

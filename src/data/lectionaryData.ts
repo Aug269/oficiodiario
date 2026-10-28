@@ -1,244 +1,154 @@
-/**
- * Fachada do Lecionário Comum Revisado Expandido (tradução REB).
- *
- * Os dados são gerados a partir do PDF oficial por
- * scripts/build-lectionary.mjs (ver lectionaryData.generated.ts) e cobrem,
- * nos três anos A/B/C: Advento, Natal, Epifania, Quaresma, Semana Santa,
- * Páscoa, Ascensão, Pentecostes, Trindade e Próprios 3 a 29, além das
- * leituras diárias expandidas (segunda a sábado) e dos Dias Santos.
- *
- * O acervo completo é carregado sob demanda (dynamic import), preservando
- * um bundle inicial enxuto e mantendo o funcionamento 100% offline depois
- * da primeira visita (o service worker pré-armazena todos os chunks).
- */
-import type { LiturgicalDayInfo } from '../services/liturgicalCalendar';
-
-export type Series = 's' | 'c';
-
-export interface GeneratedReading {
-  ref: string;
-  title: string;
-  series?: Series;
-  alternative?: boolean;
-}
-
-export interface GeneratedEntry {
-  key: string;
-  name: string;
-  sunday: GeneratedReading[];
-  daily?: Partial<Record<'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat', GeneratedReading[]>>;
-  psalms?: { pre?: GeneratedReading[]; post?: GeneratedReading[] };
-}
-
-export interface LectionaryReading {
-  type: string;
-  ref: string;
-  title: string;
-  series?: Series;
-}
-
-export interface LectionaryDay {
-  dayType: string;
-  title: string;
-  key: string;
-  readings: LectionaryReading[];
-}
-
-/** Comum dos Santos: bloco de leituras para categorias de santos (pp. 405–406). */
-export interface CommonLectionary {
+export interface LectionaryEntry {
   id: string;
+  cycle: 'A' | 'B' | 'C';
+  season: string;
   name: string;
-  readings: GeneratedReading[];
-}
-
-/** Comemoração e ocasião especial (pp. 407–409), com nota de tempo quando há. */
-export interface OccasionLectionary extends CommonLectionary {
-  note?: string;
-}
-
-/** Antífona Ó dos dias 17 a 23 de dezembro (pp. 409–410). */
-export interface OAntiphonDay {
-  day: number;
-  name: string;
-  readings: GeneratedReading[];
-}
-
-type GeneratedModule = {
-  lectionary: Record<string, GeneratedEntry>;
-  holyDays: Record<string, GeneratedReading[]>;
-  commons: Record<string, CommonLectionary>;
-  occasions: Record<string, OccasionLectionary>;
-  oAntiphons: OAntiphonDay[];
-};
-
-let modulePromise: Promise<GeneratedModule> | null = null;
-function loadGenerated(): Promise<GeneratedModule> {
-  if (!modulePromise) {
-    modulePromise = import('./lectionaryData.generated').then((m) => ({
-      lectionary: m.LECTIONARY_GENERATED.lectionary as unknown as Record<string, GeneratedEntry>,
-      holyDays: m.LECTIONARY_GENERATED.holyDays as unknown as Record<string, GeneratedReading[]>,
-      commons: m.LECTIONARY_GENERATED.commons as unknown as Record<string, CommonLectionary>,
-      occasions: m.LECTIONARY_GENERATED.occasions as unknown as Record<string, OccasionLectionary>,
-      oAntiphons: m.LECTIONARY_GENERATED.oAntiphons as unknown as OAntiphonDay[],
-    }));
-  }
-  return modulePromise;
-}
-
-const PSALM_BOOKS = new Set(['Salmo', 'Salmos']);
-const GOSPEL_BOOKS = new Set(['Mateus', 'Marcos', 'Lucas', 'João']);
-const EPISTLE_BOOKS = new Set([
-  'Atos', 'Romanos', '1 Coríntios', '2 Coríntios', 'Gálatas', 'Efésios', 'Filipenses',
-  'Colossenses', '1 Tessalonicenses', '2 Tessalonicenses', '1 Timóteo', '2 Timóteo',
-  'Tito', 'Filemom', 'Hebreus', 'Tiago', '1 Pedro', '2 Pedro', '1 João', '2 João',
-  '3 João', 'Judas', 'Apocalipse',
-]);
-
-function bookOf(ref: string): string {
-  return ref.replace(/^\d?\s*/, '').split(/\s+\d/)[0].trim();
-}
-
-function labelFor(ref: string, index: number): string {
-  const book = bookOf(ref);
-  if (PSALM_BOOKS.has(book)) return 'Salmo';
-  if (GOSPEL_BOOKS.has(book)) return 'Santo Evangelho';
-  if (EPISTLE_BOOKS.has(book)) return 'Segunda Leitura';
-  return index === 0 ? 'Primeira Leitura' : 'Leitura';
-}
-
-/** Escolhe a série complementar (c) quando há duplicatas semicontínuas. */
-function preferComplementary(readings: GeneratedReading[]): GeneratedReading[] {
-  const primary = readings.filter((r) => !r.alternative);
-  const withSeries = primary.filter((r) => r.series);
-  if (!withSeries.length) return primary;
-
-  const plain = primary.filter((r) => !r.series);
-  const cOt = withSeries.find((r) => r.series === 'c' && !PSALM_BOOKS.has(bookOf(r.ref)));
-  const cPs = withSeries.find((r) => r.series === 'c' && PSALM_BOOKS.has(bookOf(r.ref)));
-  const sOt = withSeries.find((r) => r.series === 's' && !PSALM_BOOKS.has(bookOf(r.ref)));
-  const sPs = withSeries.find((r) => r.series === 's' && PSALM_BOOKS.has(bookOf(r.ref)));
-
-  const head: GeneratedReading[] = [];
-  const ot = cOt ?? sOt;
-  const ps = cPs ?? sPs;
-  if (ot) head.push(ot);
-  if (ps) head.push(ps);
-  return [...head, ...plain];
-}
-
-function toView(readings: GeneratedReading[]): LectionaryReading[] {
-  return readings.map((r, i) => ({
-    type: labelFor(r.ref, i),
-    ref: r.ref,
-    title: r.title,
-    ...(r.series ? { series: r.series } : {}),
-  }));
-}
-
-/** Rotula referências brutas do gerador para exibição (tipo de leitura). */
-export function decorateReadings(readings: GeneratedReading[]): LectionaryReading[] {
-  return toView(readings);
-}
-
-const WEEKDAY_SLOT = {
-  1: 'mon', 2: 'tue', 3: 'wed', 4: 'thu', 5: 'fri', 6: 'sat',
-} as const;
-const WEEKDAY_NAMES = [
-  'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira',
-  'Quinta-feira', 'Sexta-feira', 'Sábado',
-];
-
-function resolveEntry(
-  lectionary: Record<string, GeneratedEntry>,
-  key: string,
-): GeneratedEntry | undefined {
-  if (lectionary[key]) return lectionary[key];
-  // Os Próprios 1 e 2 não existem no livro: o Tempo Comum inicial recorre
-  // aos Próprios 3 (ou aos domingos depois da Epifania).
-  if (/(^|-)tc-[12]$/.test(key)) return lectionary[key.replace(/tc-[12]$/, 'tc-3')];
-  // A semana da Páscoa (pasc-1) usa o bloco do Domingo da Ressurreição,
-  // que traz as leituras diárias de toda a oitava pascal.
-  if (/(^|-)pasc-1$/.test(key)) return lectionary[key.replace(/pasc-1$/, 'pasc-dia')];
-  return undefined;
-}
-
-/** Leituras do dia a partir das informações do cálculo litúrgico. */
-export async function getLectionaryForDay(info: LiturgicalDayInfo): Promise<LectionaryDay> {
-  const { lectionary, holyDays } = await loadGenerated();
-  const dayOfWeek = info.date.getDay();
-
-  // 1. Dias santos fixos com lições próprias no livro.
-  const holyKey = `${info.date.getMonth()}-${info.date.getDate()}`;
-  if (info.isRedLetterDay && holyDays[holyKey]) {
-    return {
-      dayType: info.holyDay ?? 'Dia Santo',
-      title: info.title,
-      key: `santo-${holyKey}`,
-      readings: toView(preferComplementary(holyDays[holyKey])),
-    };
-  }
-
-  const entry = resolveEntry(lectionary, info.lectionaryKey);
-  if (!entry) {
-    return { dayType: info.season, title: info.title, key: info.lectionaryKey, readings: [] };
-  }
-
-  // 2. Domingo e festas: leituras dominicais.
-  if (dayOfWeek === 0 || !entry.daily) {
-    return {
-      dayType: dayOfWeek === 0 ? 'Leituras do Domingo' : WEEKDAY_NAMES[dayOfWeek],
-      title: entry.name,
-      key: entry.key,
-      readings: toView(preferComplementary(entry.sunday)),
-    };
-  }
-
-  // 3. Dia útil: leituras diárias expandidas + salmo do dia.
-  const slot = WEEKDAY_SLOT[dayOfWeek as 1 | 2 | 3 | 4 | 5 | 6];
-  const dayReadings = entry.daily[slot];
-  if (!dayReadings || !dayReadings.length) {
-    return {
-      dayType: WEEKDAY_NAMES[dayOfWeek],
-      title: entry.name,
-      key: entry.key,
-      readings: toView(preferComplementary(entry.sunday)),
-    };
-  }
-
-  const isPreparation = dayOfWeek >= 4;
-  const psalmPool = isPreparation ? entry.psalms?.pre : entry.psalms?.post;
-  const chosen: GeneratedReading[] = [];
-  if (psalmPool?.length) chosen.push(preferComplementary(psalmPool)[0]);
-  chosen.push(...preferComplementary(dayReadings));
-
-  return {
-    dayType: `${WEEKDAY_NAMES[dayOfWeek]} · ${isPreparation ? 'Preparação para o Domingo' : 'Reflexão sobre o Domingo'}`,
-    title: entry.name,
-    key: entry.key,
-    readings: toView(chosen),
+  sundayReadings?: {
+    firstReading: { ref: string; title: string };
+    psalm: { ref: string; title: string };
+    secondReading: { ref: string; title: string };
+    gospel: { ref: string; title: string };
+  };
+  dailyReadings: {
+    thursday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    friday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    saturday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    dailyPsalmPre: string;
+    monday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    tuesday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    wednesday: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+    dailyPsalmPost: string;
   };
 }
 
-/** Catálogo completo de chaves, útil para testes e ferramentas. */
-export async function getLectionaryKeys(): Promise<string[]> {
-  const { lectionary } = await loadGenerated();
-  return Object.keys(lectionary).sort();
-}
+export const LECTIONARY_WEEK_SAMPLES: Record<string, LectionaryEntry> = {
+  // ANO A - 1º Domingo do Advento (p. 176)
+  'A-adv-1': {
+    id: 'A-adv-1',
+    cycle: 'A',
+    season: 'Advento',
+    name: '1º Domingo do Advento',
+    sundayReadings: {
+      firstReading: { ref: 'Isaías 2:1–5', title: 'Guerra transformada em paz' },
+      psalm: { ref: 'Salmo 122', title: 'Alegria na casa de Deus' },
+      secondReading: { ref: 'Romanos 13:11–14', title: 'A salvação está próxima; despertai do sono' },
+      gospel: { ref: 'Mateus 24:36–44', title: 'A vinda repentina da salvação' }
+    },
+    dailyReadings: {
+      thursday: { ot: 'Daniel 9:15–19', otTitle: 'Um pedido de perdão', nt: 'Tiago 4:1–10', ntTitle: 'Graça de Deus e humildade', gospel: 'Mateus 24:1–14', gospelTitle: 'O dia do Senhor está chegando' },
+      friday: { ot: 'Gênesis 6:1–10', otTitle: 'A justiça de Noé', nt: 'Hebreus 11:1–7', ntTitle: 'Noé age com fé', gospel: 'Mateus 24:15–28', gospelTitle: 'O sacrilégio desolador' },
+      saturday: { ot: 'Gênesis 6:11–22', otTitle: 'A arca e obediência', nt: 'Hebreus 11:8–16', ntTitle: 'Promessas à distância', gospel: 'Marcos 13:32–37', gospelTitle: 'A necessidade de vigilância' },
+      dailyPsalmPre: 'Salmo 122',
+      monday: { ot: 'Gênesis 8:1–19', otTitle: 'As águas do dilúvio baixam', nt: 'Romanos 6:1–11', ntTitle: 'Morrendo e ressuscitando em Cristo', gospel: 'Lucas 17:22–37', gospelTitle: 'A vinda do reino' },
+      tuesday: { ot: 'Gênesis 9:1–17', otTitle: 'O sinal do arco-íris', nt: 'Hebreus 11:32–40', ntTitle: 'Os heróis da fé', gospel: 'Lucas 12:49–56', gospelTitle: 'Jesus, causa de divisão' },
+      wednesday: { ot: 'Isaías 54:1–10', otTitle: 'Deus salvará o povo', nt: 'Romanos 6:12–23', ntTitle: 'Não deixeis o pecado reinar', gospel: 'Mateus 24:23–35', gospelTitle: 'O fim está chegando' },
+      dailyPsalmPost: 'Salmo 124'
+    }
+  },
 
-/** Comuns dos Santos (pp. 405–406), na ordem do livro. */
-export async function getCommons(): Promise<CommonLectionary[]> {
-  const { commons } = await loadGenerated();
-  return Object.values(commons);
-}
+  // ANO B - Próprio 25 (p. 316)
+  'B-proprio-25': {
+    id: 'B-proprio-25',
+    cycle: 'B',
+    season: 'Tempo Comum',
+    name: 'Próprio 25 (Domingo entre 23 e 29 de outubro)',
+    sundayReadings: {
+      firstReading: { ref: 'Jó 42:1–6, 10–17', title: 'A restauração de Jó' },
+      psalm: { ref: 'Salmo 34:1–8, (19–22)', title: 'Provai e vede' },
+      secondReading: { ref: 'Hebreus 7:23–28', title: 'Cristo, o sumo sacerdote misericordioso' },
+      gospel: { ref: 'Marcos 10:46–52', title: 'Cristo cura o cego Bartimeu' }
+    },
+    dailyReadings: {
+      thursday: { ot: '2 Reis 20:12–19', otTitle: 'A palavra vem a Ezequias', nt: 'Hebreus 7:1–10', ntTitle: 'A ordem de Melquisedeque', gospel: 'Mateus 9:27–31', gospelTitle: 'Jesus cura dois na Galileia' },
+      friday: { ot: 'Neemias 1:1–11', otTitle: 'Neemias ora pela restauração', nt: 'Hebreus 7:11–22', ntTitle: 'Jesus é como Melquisedeque', gospel: 'João 9:1–11', gospelTitle: 'Jesus dá vista ao cego' },
+      saturday: { ot: 'Jó 42:7–9', otTitle: 'Deus corrige os amigos de Jó', nt: 'Romanos 8:28–34', ntTitle: 'Cristo intercede por nós', gospel: 'Marcos 8:22–26', gospelTitle: 'Jesus cura um cego' },
+      dailyPsalmPre: 'Salmo 34:1–8',
+      monday: { ot: 'Isaías 59:9–19', otTitle: 'O povo confessa os seus pecados', nt: '1 Pedro 2:1–10', ntTitle: 'Chamados a um sacerdócio santo', gospel: 'Mateus 20:29–34', gospelTitle: 'Jesus cura dois cegos' },
+      tuesday: { ot: 'Ezequiel 18:1–32', otTitle: 'Os justos não são culpados', nt: 'Atos 9:32–35', ntTitle: 'A cura de Enéias', gospel: 'Lucas 18:35–43', gospelTitle: 'Uma cura em Jericó' },
+      wednesday: { ot: 'Ezequiel 14:12–23', otTitle: 'Jó, um exemplo de justiça', nt: 'Romanos 6:5–11', ntTitle: 'Cristo morreu para o pecado de uma vez por todas', gospel: 'Marcos 8:14–21', gospelTitle: 'Os que veem e não conseguem ver' },
+      dailyPsalmPost: 'Salmo 28'
+    }
+  },
 
-/** Comemorações e ocasiões especiais (pp. 407–409), na ordem do livro. */
-export async function getOccasions(): Promise<OccasionLectionary[]> {
-  const { occasions } = await loadGenerated();
-  return Object.values(occasions);
-}
+  // ANO C - Próprio 25 (p. 390)
+  'C-proprio-25': {
+    id: 'C-proprio-25',
+    cycle: 'C',
+    season: 'Tempo Comum',
+    name: 'Próprio 25 (Domingo entre 23 e 29 de outubro)',
+    sundayReadings: {
+      firstReading: { ref: 'Joel 2:23–32', title: 'A promessa de restaurar Israel' },
+      psalm: { ref: 'Salmo 65', title: 'Os teus caminhos transbordam de fartura' },
+      secondReading: { ref: '2 Timóteo 4:6–8, 16–18', title: 'O bom combate da fé' },
+      gospel: { ref: 'Lucas 18:9–14', title: 'Um fariseu e um publicano oram' }
+    },
+    dailyReadings: {
+      thursday: { ot: 'Joel 1:1–20', otTitle: 'Lamento e chamado ao arrependimento', nt: 'Colossenses 4:7–18', ntTitle: 'Paulo fala das suas cadeias', gospel: 'Lucas 1:46b–55', gospelTitle: 'O cântico de Maria' },
+      friday: { ot: 'Joel 2:1–11', otTitle: 'O dia do Senhor', nt: '2 Timóteo 3:1–9', ntTitle: 'A impiedade nos últimos dias', gospel: 'Lucas 7:28–29', gospelTitle: 'João batiza cobradores de impostos' },
+      saturday: { ot: 'Joel 2:12–22', otTitle: 'Volta para o teu Deus', nt: '2 Timóteo 3:10–15', ntTitle: 'A perseguição dos piedosos', gospel: 'Marcos 2:13–17', gospelTitle: 'Jantar com o cobrador de impostos Levi' },
+      dailyPsalmPre: 'Salmo 65',
+      monday: { ot: 'Joel 3:1–8', otTitle: 'Deus restaurará Israel e Judá', nt: '1 Pedro 4:12–19', ntTitle: 'O sofrimento dos justos', gospel: 'Mateus 18:1–5', gospelTitle: 'Humildade como a de uma criança' },
+      tuesday: { ot: 'Joel 3:9–16', otTitle: 'O vale de Josafá', nt: '1 Pedro 5:1–11', ntTitle: 'A coroa incorruptível da glória', gospel: 'Mateus 21:28–32', gospelTitle: 'A fé de cobradores de impostos e prostitutas' },
+      wednesday: { ot: 'Joel 3:17–20', otTitle: 'O futuro glorioso de Judá', nt: '2 Timóteo 4:9–15, 19–22', ntTitle: 'Palavras de despedida', gospel: 'Lucas 6:35–37', gospelTitle: 'Sede misericordiosos como Deus é misericordioso' },
+      dailyPsalmPost: 'Salmo 87'
+    }
+  }
+};
 
-/** Antífonas Ó de 17 a 23 de dezembro (pp. 409–410). */
-export async function getOAntiphons(): Promise<OAntiphonDay[]> {
-  const { oAntiphons } = await loadGenerated();
-  return oAntiphons;
+export function getTodayLectionary(cycle: 'A' | 'B' | 'C', season: string, proprio?: number, dayOfWeek: number = new Date().getDay()) {
+  const key = `${cycle}-${season === 'Advento' ? 'adv-1' : `proprio-${proprio || 25}`}`;
+  const entry = LECTIONARY_WEEK_SAMPLES[key] || LECTIONARY_WEEK_SAMPLES[`${cycle}-proprio-25`] || LECTIONARY_WEEK_SAMPLES['B-proprio-25'];
+  
+  if (dayOfWeek === 0 && entry.sundayReadings) {
+    return {
+      dayType: 'Domingo',
+      title: entry.name,
+      readings: [
+        { type: 'Primeira Leitura', ...entry.sundayReadings.firstReading },
+        { type: 'Salmo', ...entry.sundayReadings.psalm },
+        { type: 'Segunda Leitura', ...entry.sundayReadings.secondReading },
+        { type: 'Santo Evangelho', ...entry.sundayReadings.gospel }
+      ]
+    };
+  }
+
+  // Weekday selection
+  const daily = entry.dailyReadings;
+  let dayData: { ot: string; otTitle: string; nt: string; ntTitle: string; gospel: string; gospelTitle: string };
+  let psalm = daily.dailyPsalmPre;
+  let dayLabel = 'Dia de Semana';
+
+  if (dayOfWeek === 4) { // Quinta
+    dayData = daily.thursday;
+    dayLabel = 'Quinta-feira (Preparação para o Domingo)';
+  } else if (dayOfWeek === 5) { // Sexta
+    dayData = daily.friday;
+    dayLabel = 'Sexta-feira (Preparação para o Domingo)';
+  } else if (dayOfWeek === 6) { // Sábado
+    dayData = daily.saturday;
+    dayLabel = 'Sábado (Preparação para o Domingo)';
+  } else if (dayOfWeek === 1) { // Segunda
+    dayData = daily.monday;
+    psalm = daily.dailyPsalmPost;
+    dayLabel = 'Segunda-feira (Reflexão sobre o Domingo)';
+  } else if (dayOfWeek === 2) { // Terça
+    dayData = daily.tuesday;
+    psalm = daily.dailyPsalmPost;
+    dayLabel = 'Terça-feira (Reflexão sobre o Domingo)';
+  } else { // Quarta
+    dayData = daily.wednesday;
+    psalm = daily.dailyPsalmPost;
+    dayLabel = 'Quarta-feira (Reflexão sobre o Domingo)';
+  }
+
+  return {
+    dayType: dayLabel,
+    title: entry.name,
+    readings: [
+      { type: 'Salmo Diário', ref: psalm, title: 'Salmo do Dia' },
+      { type: 'Antigo Testamento', ref: dayData.ot, title: dayData.otTitle },
+      { type: 'Epístola / Novo Testamento', ref: dayData.nt, title: dayData.ntTitle },
+      { type: 'Evangelho', ref: dayData.gospel, title: dayData.gospelTitle }
+    ]
+  };
 }

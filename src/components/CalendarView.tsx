@@ -1,12 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import {
-  getLiturgicalInfo,
-  getMovableDatesForYear,
-  calculateProprioNumber,
-  LiturgicalDayInfo,
-} from '../services/liturgicalCalendar';
-import { Calendar, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
-import { getCommemorationsForDate } from '../data/commemorationsData';
+import React, { useState } from 'react';
+import { getLiturgicalInfo, LiturgicalDayInfo } from '../services/liturgicalCalendar';
+import { Calendar, ChevronLeft, ChevronRight, Sparkles, BookOpen, Clock } from 'lucide-react';
 
 interface CalendarViewProps {
   currentDate: Date;
@@ -14,70 +8,15 @@ interface CalendarViewProps {
   onOpenOfficeForDate: (d: Date) => void;
 }
 
-const MONTH_ABBR = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-
-function shortDate(d: Date): string {
-  return `${d.getDate()} ${MONTH_ABBR[d.getMonth()]}`;
-}
-
-/** Número de domingos entre a Epifania (6 jan) e a Quarta-feira de Cinzas. */
-function sundaysAfterEpiphany(year: number, ashWednesday: Date): number {
-  let count = 0;
-  const cursor = new Date(year, 0, 7);
-  while (cursor < ashWednesday) {
-    if (cursor.getDay() === 0) count += 1;
-    cursor.setDate(cursor.getDate() + 1);
-  }
-  return count;
-}
-
-interface TableRow {
-  year: number;
-  cycle: string;
-  epiphanySundays: number;
-  ash: string;
-  easter: string;
-  ascension: string;
-  pentecost: string;
-  firstProper: number;
-  advent: string;
-}
-
 export const CalendarView: React.FC<CalendarViewProps> = ({
   currentDate,
   onSelectDate,
-  onOpenOfficeForDate,
+  onOpenOfficeForDate
 }) => {
   const [activeDate, setActiveDate] = useState<Date>(new Date(currentDate));
   const [showTableModal, setShowTableModal] = useState<boolean>(false);
 
   const info: LiturgicalDayInfo = getLiturgicalInfo(activeDate);
-  const optionalCommemorations = useMemo(
-    () => getCommemorationsForDate(activeDate.getMonth(), activeDate.getDate()).filter((c) => c.kind === 'comemoracao'),
-    [activeDate],
-  );
-
-  // Tábua perpétua 2026–2075, calculada pelo mesmo motor do app (pp. 173–174 do livro).
-  const tableRows: TableRow[] = useMemo(() => {
-    const rows: TableRow[] = [];
-    for (let year = 2026; year <= 2075; year++) {
-      const m = getMovableDatesForYear(year);
-      const firstProperSunday = new Date(m.trinitySunday);
-      firstProperSunday.setDate(firstProperSunday.getDate() + 7);
-      rows.push({
-        year,
-        cycle: m.cycle,
-        epiphanySundays: sundaysAfterEpiphany(year, m.ashWednesday),
-        ash: shortDate(m.ashWednesday),
-        easter: shortDate(m.easter),
-        ascension: shortDate(m.ascension),
-        pentecost: shortDate(m.pentecost),
-        firstProper: calculateProprioNumber(firstProperSunday),
-        advent: `${shortDate(m.firstSundayAdvent)} (${m.cycleAtAdvent})`,
-      });
-    }
-    return rows;
-  }, []);
 
   const changeDay = (delta: number) => {
     const next = new Date(activeDate);
@@ -104,7 +43,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     purple: 'bg-purple-100 text-purple-900 border-purple-200 dark:bg-purple-950 dark:text-purple-200 dark:border-purple-800',
     white: 'bg-amber-50 text-amber-900 border-amber-200 dark:bg-stone-800 dark:text-amber-200 dark:border-stone-700',
     red: 'bg-rose-100 text-rose-900 border-rose-200 dark:bg-rose-950 dark:text-rose-200 dark:border-rose-800',
-    green: 'bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-200 dark:border-emerald-800',
+    green: 'bg-emerald-100 text-emerald-900 border-emerald-200 dark:bg-emerald-950 dark:text-emerald-200 dark:border-emerald-800'
   }[info.color];
 
   return (
@@ -184,10 +123,6 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <span className="text-stone-500">Tempo Litúrgico:</span>
             <span className="font-semibold text-stone-800 dark:text-stone-200">{info.season}</span>
           </div>
-          <div className="flex justify-between items-center py-2 border-b border-stone-100/60 dark:border-stone-800/60">
-            <span className="text-stone-500">Chave do Lecionário:</span>
-            <span className="font-mono text-xs font-semibold text-stone-700 dark:text-stone-300">{info.lectionaryKey}</span>
-          </div>
           {info.proprioNumber && (
             <div className="flex justify-between items-center py-2 border-b border-stone-100/60 dark:border-stone-800/60">
               <span className="text-stone-500">Próprio do Tempo Comum:</span>
@@ -197,22 +132,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           {info.isRedLetterDay && (
             <div className="flex justify-between items-center py-2 border-b border-stone-100/60 dark:border-stone-800/60 text-[#b91c1c] dark:text-rose-400">
               <span>Dia Santo de Letra Vermelha:</span>
-              <span className="font-bold text-right">{info.holyDay}</span>
-            </div>
-          )}
-          {optionalCommemorations.length > 0 && (
-            <div className="py-2 border-b border-stone-100/60 dark:border-stone-800/60">
-              <p className="rubric mb-1.5">Comemorações opcionais do calendário:</p>
-              <ul className="space-y-1">
-                {optionalCommemorations.map((c, i) => (
-                  <li key={`${c.month}-${c.day}-${i}`} className="text-sm font-serif text-stone-700 dark:text-stone-300">
-                    <span className="font-semibold">{c.name}</span>
-                    {c.role && <span className="text-stone-500 dark:text-stone-400">, {c.role}</span>}
-                    {c.years && <span className="text-stone-400 dark:text-stone-500">, {c.years.join(' e ')}</span>}
-                    {c.era && <span className="text-stone-400 dark:text-stone-500">, {c.era}</span>}
-                  </li>
-                ))}
-              </ul>
+              <span className="font-bold">{info.holyDay}</span>
             </div>
           )}
         </div>
@@ -228,12 +148,12 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         </div>
       </div>
 
-      {/* Tábua perpétua calculada (pp. 173–174 do livro) */}
+      {/* Modal / Section: Tábua de Datas Móveis (p. 173-174 do PDF) */}
       {showTableModal && (
-        <section className="mt-10 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm">
+        <section className="mt-10 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 shadow-sm animate-fade-in">
           <div className="flex items-center justify-between pb-4 border-b border-stone-200/80 dark:border-stone-800">
             <h3 className="font-display font-bold text-lg text-[#4a153b] dark:text-rose-200">
-              Tábua de Datas Móveis · 2026 a 2075
+              Tábua de Datas Móveis Oficial (REB 2026–2035)
             </h3>
             <button
               onClick={() => setShowTableModal(false)}
@@ -243,39 +163,93 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             </button>
           </div>
           <p className="text-xs font-sans text-stone-500 italic mt-2 mb-4">
-            Calculada pelo algoritmo gregoriano da Páscoa, em conformidade com a tábua do livro (páginas 173–174).
-            O ciclo indicado vale de janeiro ao sábado anterior ao Advento; entre parênteses, o ciclo que se inicia
-            no 1º Domingo do Advento.
+            Conforme publicado no Livro de Oração Comum da Rede Episcopal Brasileira (página 173). O Ano A começa no 1º Domingo do Advento em anos divisíveis por 3.
           </p>
-          <div className="overflow-x-auto max-h-[28rem] overflow-y-auto">
+          <div className="overflow-x-auto">
             <table className="w-full text-left text-xs font-sans">
-              <thead className="bg-stone-100 dark:bg-stone-800/70 text-stone-700 dark:text-stone-300 sticky top-0">
+              <thead className="bg-stone-100 dark:bg-stone-800/70 text-stone-700 dark:text-stone-300">
                 <tr>
                   <th className="p-2.5">Ano</th>
                   <th className="p-2.5">Ciclo</th>
-                  <th className="p-2.5">Dom. após Epifania</th>
                   <th className="p-2.5">Cinzas</th>
                   <th className="p-2.5">Páscoa</th>
                   <th className="p-2.5">Ascensão</th>
                   <th className="p-2.5">Pentecostes</th>
                   <th className="p-2.5">Próprio após Trindade</th>
-                  <th className="p-2.5">1º Dom. Advento</th>
+                  <th className="p-2.5">1º Dom Advento</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-stone-100 dark:divide-stone-800">
-                {tableRows.map((row) => (
-                  <tr key={row.year} className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
-                    <td className="p-2.5 font-bold">{row.year}</td>
-                    <td className="p-2.5 font-bold text-[#b91c1c]">{row.cycle}</td>
-                    <td className="p-2.5">{row.epiphanySundays}</td>
-                    <td className="p-2.5">{row.ash}</td>
-                    <td className="p-2.5">{row.easter}</td>
-                    <td className="p-2.5">{row.ascension}</td>
-                    <td className="p-2.5">{row.pentecost}</td>
-                    <td className="p-2.5">Próprio {row.firstProper}</td>
-                    <td className="p-2.5 font-semibold">{row.advent}</td>
-                  </tr>
-                ))}
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2026</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">A</td>
+                  <td className="p-2.5">18 fev</td>
+                  <td className="p-2.5">5 abr</td>
+                  <td className="p-2.5">14 mai</td>
+                  <td className="p-2.5">24 mai</td>
+                  <td className="p-2.5">Próprio 5</td>
+                  <td className="p-2.5 font-semibold">29 nov (B)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2027</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">B</td>
+                  <td className="p-2.5">10 fev</td>
+                  <td className="p-2.5">28 mar</td>
+                  <td className="p-2.5">6 mai</td>
+                  <td className="p-2.5">16 mai</td>
+                  <td className="p-2.5">Próprio 4</td>
+                  <td className="p-2.5 font-semibold">28 nov (C)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2028</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">C</td>
+                  <td className="p-2.5">1 mar</td>
+                  <td className="p-2.5">16 abr</td>
+                  <td className="p-2.5">25 mai</td>
+                  <td className="p-2.5">4 jun</td>
+                  <td className="p-2.5">Próprio 6</td>
+                  <td className="p-2.5 font-semibold">3 dez (A)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2029</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">A</td>
+                  <td className="p-2.5">14 fev</td>
+                  <td className="p-2.5">1 abr</td>
+                  <td className="p-2.5">10 mai</td>
+                  <td className="p-2.5">20 mai</td>
+                  <td className="p-2.5">Próprio 4</td>
+                  <td className="p-2.5 font-semibold">2 dez (B)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2030</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">B</td>
+                  <td className="p-2.5">6 mar</td>
+                  <td className="p-2.5">21 abr</td>
+                  <td className="p-2.5">30 mai</td>
+                  <td className="p-2.5">9 jun</td>
+                  <td className="p-2.5">Próprio 7</td>
+                  <td className="p-2.5 font-semibold">1 dez (C)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2031</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">C</td>
+                  <td className="p-2.5">26 fev</td>
+                  <td className="p-2.5">13 abr</td>
+                  <td className="p-2.5">22 mai</td>
+                  <td className="p-2.5">1 jun</td>
+                  <td className="p-2.5">Próprio 6</td>
+                  <td className="p-2.5 font-semibold">30 nov (A)</td>
+                </tr>
+                <tr className="hover:bg-amber-50/50 dark:hover:bg-stone-800/50">
+                  <td className="p-2.5 font-bold">2032</td>
+                  <td className="p-2.5 font-bold text-[#b91c1c]">A</td>
+                  <td className="p-2.5">11 fev</td>
+                  <td className="p-2.5">28 mar</td>
+                  <td className="p-2.5">6 mai</td>
+                  <td className="p-2.5">16 mai</td>
+                  <td className="p-2.5">Próprio 4</td>
+                  <td className="p-2.5 font-semibold">28 nov (B)</td>
+                </tr>
               </tbody>
             </table>
           </div>

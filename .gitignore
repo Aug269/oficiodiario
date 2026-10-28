@@ -6,6 +6,3 @@ coverage/
 *.log
 .env*
 !.env.example
-
-# Artefatos intermediários do pipeline de extração do PDF
-scripts/out/

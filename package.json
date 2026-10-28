@@ -1,41 +1,36 @@
 {
-  "name": "oficio-diario-lecionario-reb",
+  "name": "react-example",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.0",
   "type": "module",
-  "description": "Ofício Diário & Lecionário da Rede Episcopal Brasileira — PWA litúrgico com cálculo perpétuo do ano cristão (2026–2075).",
   "scripts": {
     "dev": "vite --port=3000 --host=0.0.0.0",
-    "build": "tsc --noEmit && vite build",
-    "preview": "vite preview --host=0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
-    "pdf:extract": "node scripts/extract-pdf.mjs",
-    "build:lectionary": "npm run pdf:extract && node scripts/build-lectionary.mjs",
-    "build:commemorations": "npm run pdf:extract && node scripts/build-commemorations.mjs",
-    "verify:table": "npm run pdf:extract && vite-node scripts/verify-table.ts"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
+    "@google/genai": "^2.4.0",
+    "@tailwindcss/vite": "^4.3.3",
     "@vitejs/plugin-react": "^6.1.1",
     "lucide-react": "^0.546.0",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "vite": "^8.3.0"
+    "vite": "^8.3.0",
+    "express": "^4.21.2",
+    "dotenv": "^17.2.3",
+    "motion": "^12.23.24"
   },
   "devDependencies": {
-    "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^22.14.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "esbuild": "^0.28.0",
-    "jsdom": "^30.1.3",
-    "pdfjs-dist": "^6.4.299",
-    "sharp": "^0.35.5",
+    "autoprefixer": "^10.4.21",
+    "esbuild": "^0.25.0",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.21.0",
     "typescript": "^7.0.2",
-    "vite-plugin-pwa": "^1.0.0",
-    "vitest": "^3.2.0"
+    "@types/express": "^4.17.21"
   }
 }

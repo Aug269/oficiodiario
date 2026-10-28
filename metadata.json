@@ -1,0 +1,6 @@
+{
+  "name": "Ofício Diário & Lecionário REB",
+  "description": "Aplicativo litúrgico e devocional oficial da Rede Episcopal Brasileira com Ofício Tradicional, Ofício para Famílias, Lecionário Trienal e Coletas.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

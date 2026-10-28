@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookMarked, ShieldCheck, HeartHandshake, FileText } from 'lucide-react';
+import { BookMarked, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export const AboutView: React.FC = () => {
   return (
@@ -78,31 +78,6 @@ export const AboutView: React.FC = () => {
           <p>ISBN: 978-65-02-40661-8 · © Rede Episcopal Brasileira</p>
           <p>Lecionário: Revised Common Lectionary Expanded Daily Readings, copyright © 2024 Consultation on Common Texts.</p>
         </div>
-      </section>
-
-      {/* Edição integral em PDF, pré-armazenada para consulta offline */}
-      <section className="my-8 p-6 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-        <span className="p-3 rounded-xl bg-[#4a153b]/10 text-[#4a153b] dark:text-rose-300 shrink-0">
-          <FileText className="w-6 h-6" />
-        </span>
-        <div className="flex-1">
-          <h3 className="font-display font-bold text-base text-[#4a153b] dark:text-rose-200 mb-1">
-            Livro integral em PDF
-          </h3>
-          <p className="text-xs font-sans text-stone-500 dark:text-stone-400 leading-relaxed">
-            O texto integral do Ofício Diário &amp; Lecionário (410 páginas) fica armazenado no aplicativo e
-            pode ser consultado mesmo sem internet.
-          </p>
-        </div>
-        <a
-          href="/assets/oficio-diario-lecionario-reb.pdf"
-          target="_blank"
-          rel="noopener"
-          className="shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#4a153b] hover:bg-[#5a1b49] text-white font-sans text-xs font-semibold transition-colors"
-        >
-          <BookMarked className="w-4 h-4" />
-          Abrir PDF
-        </a>
       </section>
     </article>
   );
