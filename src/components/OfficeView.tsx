@@ -7,7 +7,8 @@ import { getScriptureText, ScriptureLookupResult } from '../services/bibleServic
 import { SilenceTimer } from './SilenceTimer';
 import { GuidedMeditationBar } from './GuidedMeditationBar';
 import { isBookmarked, saveBookmark, removeBookmark } from '../services/bookmarkService';
-import { BookOpen, ChevronDown, ChevronUp, Sparkles, Bookmark, BookmarkCheck } from 'lucide-react';
+import { BookOpen, ChevronDown, ChevronUp, Sparkles, Bookmark, BookmarkCheck, Music } from 'lucide-react';
+import { CanticleMusicPlayer } from './CanticleMusicPlayer';
 
 interface OfficeViewProps {
   hour: CanonicalHour;
@@ -24,6 +25,7 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
   const [scriptureTexts, setScriptureTexts] = useState<Record<string, ScriptureLookupResult>>({});
   const [loadingReading, setLoadingReading] = useState<string | null>(null);
   const [bookmarkedMap, setBookmarkedMap] = useState<Record<string, boolean>>({});
+  const [expandedMusicId, setExpandedMusicId] = useState<string | null>(null);
 
   // Today's lectionary readings based on cycle and season
   const lectionary = getTodayLectionary(
@@ -141,13 +143,47 @@ export const OfficeView: React.FC<OfficeViewProps> = ({
           }
 
           if (item.type === 'subheading') {
+            const lowerText = item.text.toLowerCase();
+            const matchingCanticleId = 
+              lowerText.includes('venite') ? 'cantate-domino' :
+              lowerText.includes('jubilate') ? 'cantate-domino' :
+              lowerText.includes('benedictus') ? 'benedictus-dominus' :
+              lowerText.includes('cantate') ? 'cantate-domino' :
+              lowerText.includes('magnificat') ? 'magnificat' :
+              lowerText.includes('nunc dimittis') ? 'nunc-dimittis' :
+              lowerText.includes('phos hilaron') || lowerText.includes('alegre luz') ? 'phos-hilaron' :
+              lowerText.includes('te deum') ? 'te-deum' : null;
+
+            const isMusicOpen = expandedMusicId === item.id;
+
             return (
-              <div key={item.id} className="pt-4 pb-1 text-center">
-                <h3 className="text-lg font-display font-medium text-stone-700 dark:text-stone-300">
-                  {item.text}
-                </h3>
+              <div key={item.id} className="pt-4 pb-1">
+                <div className="flex flex-wrap items-center justify-center gap-2">
+                  <h3 className="text-lg font-display font-medium text-stone-700 dark:text-stone-300 text-center">
+                    {item.text}
+                  </h3>
+                  {matchingCanticleId && (
+                    <button
+                      onClick={() => setExpandedMusicId(isMusicOpen ? null : item.id)}
+                      className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-sans font-medium transition cursor-pointer shadow-2xs ${
+                        isMusicOpen
+                          ? 'bg-[#4a153b] text-white'
+                          : 'bg-amber-100/90 hover:bg-amber-200 text-[#4a153b] dark:bg-stone-800 dark:text-amber-300 border border-amber-300/60 dark:border-stone-700'
+                      }`}
+                      title="Abrir apoio musical e tom do cântico"
+                    >
+                      <Music className="w-3 h-3 text-[#b91c1c] dark:text-rose-400" />
+                      <span>{isMusicOpen ? 'Ocultar Música' : 'Cantar com Música'}</span>
+                    </button>
+                  )}
+                </div>
                 {item.reference && (
-                  <p className="text-xs font-sans text-stone-400">{item.reference}</p>
+                  <p className="text-xs font-sans text-stone-400 text-center mt-0.5">{item.reference}</p>
+                )}
+                {matchingCanticleId && isMusicOpen && (
+                  <div className="my-3">
+                    <CanticleMusicPlayer canticleId={matchingCanticleId} canticleTitle={item.text} />
+                  </div>
                 )}
               </div>
             );

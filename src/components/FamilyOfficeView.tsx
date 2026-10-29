@@ -6,6 +6,7 @@ import { isBookmarked, saveBookmark, removeBookmark } from '../services/bookmark
 import { getTodayLectionary } from '../data/lectionaryData';
 import { getLiturgicalInfo, LiturgicalDayInfo } from '../services/liturgicalCalendar';
 import { getScriptureText } from '../services/bibleService';
+import { PrayerRequestsManager } from './PrayerRequestsManager';
 import { Users, Heart, Utensils, Bookmark, BookmarkCheck, ChevronDown, ChevronUp, Scroll, Sun, SunMedium, Sunset, Moon, BedDouble, BookOpen, Loader2 } from 'lucide-react';
 
 interface FamilyOfficeViewProps {
@@ -87,6 +88,18 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
   );
 
   const currentOffice: FamilyOffice = FAMILY_OFFICES.find(o => o.id === selectedSubOffice) || FAMILY_OFFICES[0];
+
+  // Brief readings interactive selector state (when multiple options exist separated by 'ou')
+  const [selectedBriefReadingIndex, setSelectedBriefReadingIndex] = useState<number | 'todas'>(0);
+
+  const briefReadings = currentOffice.items.filter(
+    it => it.type === 'scripture' && it.id.includes('leitura')
+  );
+
+  // Reset brief reading selection when switching offices
+  useEffect(() => {
+    setSelectedBriefReadingIndex(0);
+  }, [selectedSubOffice]);
 
   // Fetch daily psalm text when selected
   useEffect(() => {
@@ -253,7 +266,7 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
             }`}
           >
             <Heart className="w-3.5 h-3.5 text-[#b91c1c] dark:text-rose-400" />
-            <span>Orações Adicionais (pp. 87–89)</span>
+            <span>Orações Adicionais & Pedidos</span>
           </button>
 
           <button
@@ -454,7 +467,8 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
 
               // RUBRICS: All instructions printed in RED ITALIC as in the official book
               if (item.type === 'rubric') {
-                if (hideBriefReadings && (item.id.includes('rubric-ou') || item.text.trim().toLowerCase() === 'ou')) {
+                const isOuRubric = item.id.includes('rubric-ou') || item.text.trim().toLowerCase() === 'ou';
+                if ((hideBriefReadings || selectedBriefReadingIndex !== 'todas') && isOuRubric) {
                   return null;
                 }
 
@@ -558,7 +572,7 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
                       </div>
                     )}
 
-                    {/* Interactive toggle for Additional Prayers mentioned in the rubric */}
+                    {/* Interactive toggle for Additional Prayers & Prayer Requests mentioned in the rubric */}
                     {isPrayersRubric && (
                       <div className="mt-2">
                         <button
@@ -566,20 +580,13 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
                           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-stone-300 dark:border-stone-700 text-xs font-sans font-semibold text-stone-700 dark:text-stone-300 bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 transition-colors cursor-pointer"
                         >
                           <Heart className="w-3.5 h-3.5 text-[#b91c1c]" />
-                          <span>{showAdditionalPrayers ? 'Ocultar Orações Adicionais' : 'Ver Orações Adicionais da Família (pp. 87–89)'}</span>
+                          <span>{showAdditionalPrayers ? 'Ocultar Orações & Pedidos' : 'Ver Orações & Pedidos da Família (pp. 87–89)'}</span>
                           {showAdditionalPrayers ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                         </button>
 
                         {showAdditionalPrayers && (
-                          <div className="mt-3 space-y-3 animate-fade-in">
-                            {ADDITIONAL_PRAYERS.map((p, idx) => (
-                              <div key={idx} className="p-4 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 text-xs font-serif">
-                                <span className="font-sans font-bold text-[#4a153b] dark:text-rose-300 block mb-1">
-                                  {p.title} (p. {p.page})
-                                </span>
-                                <p className="text-stone-800 dark:text-stone-200 leading-relaxed">{p.text}</p>
-                              </div>
-                            ))}
+                          <div className="mt-3 p-4 sm:p-5 rounded-2xl bg-amber-50/50 dark:bg-stone-900 border border-amber-200/60 dark:border-stone-800 animate-fade-in shadow-2xs">
+                            <PrayerRequestsManager compact={true} initialSubTab="pedidos" />
                           </div>
                         )}
                       </div>
@@ -812,13 +819,53 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
                 const isReadingHeading = item.text === 'Leitura';
                 return (
                   <div key={item.id} className="pt-4 pb-1 border-b border-stone-200/40 dark:border-stone-800/60">
-                    <h3 className="text-xl font-display font-bold text-[#4a153b] dark:text-rose-200">
-                      {item.text}
-                    </h3>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                      <h3 className="text-xl font-display font-bold text-[#4a153b] dark:text-rose-200">
+                        {item.text}
+                      </h3>
+                      {isReadingHeading && !hideBriefReadings && briefReadings.length > 1 && (
+                        <span className="text-xs font-sans text-stone-500 dark:text-stone-400">
+                          {briefReadings.length} opções no livro (escolha uma ou veja todas)
+                        </span>
+                      )}
+                    </div>
+
                     {isReadingHeading && hideBriefReadings && (
                       <p className="text-xs font-sans text-stone-500 italic mt-1">
                         (Leituras breves do ofício ocultadas — veja as Leituras do Lecionário abaixo)
                       </p>
+                    )}
+
+                    {/* Brief Readings Interactive Selector Pills */}
+                    {isReadingHeading && !hideBriefReadings && briefReadings.length > 1 && (
+                      <div className="my-3 flex flex-wrap gap-1.5 items-center">
+                        <span className="text-xs font-sans font-medium text-stone-500 dark:text-stone-400 mr-1">
+                          Opções de Leitura Breve:
+                        </span>
+                        {briefReadings.map((br, idx) => (
+                          <button
+                            key={br.id}
+                            onClick={() => setSelectedBriefReadingIndex(idx)}
+                            className={`px-2.5 py-1.5 rounded-lg text-xs font-sans transition-all cursor-pointer ${
+                              selectedBriefReadingIndex === idx
+                                ? 'bg-[#4a153b] text-white shadow-xs font-semibold'
+                                : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hover:bg-stone-50'
+                            }`}
+                          >
+                            <span className="font-medium">Opção {idx + 1}:</span> {br.reference}
+                          </button>
+                        ))}
+                        <button
+                          onClick={() => setSelectedBriefReadingIndex('todas')}
+                          className={`px-2.5 py-1.5 rounded-lg text-xs font-sans font-medium transition-all cursor-pointer ${
+                            selectedBriefReadingIndex === 'todas'
+                              ? 'bg-[#4a153b] text-white shadow-xs font-semibold'
+                              : 'bg-white dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 hover:bg-stone-50'
+                          }`}
+                        >
+                          Ver Todas (com «ou»)
+                        </button>
+                      </div>
                     )}
                   </div>
                 );
@@ -835,18 +882,34 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
 
               // SCRIPTURE VERSES / READINGS
               if (item.type === 'scripture') {
-                if (hideBriefReadings && (item.id.includes('leitura') || item.id.includes('fam-m-leitura'))) {
+                const isBriefReading = item.id.includes('leitura') || item.id.includes('fam-m-leitura');
+                if (hideBriefReadings && isBriefReading) {
                   return null;
+                }
+
+                // If a specific brief reading option is selected, only display that one
+                if (isBriefReading && typeof selectedBriefReadingIndex === 'number') {
+                  const activeReading = briefReadings[selectedBriefReadingIndex];
+                  if (activeReading && item.id !== activeReading.id) {
+                    return null;
+                  }
                 }
 
                 return (
                   <div key={item.id} className="my-4 p-5 rounded-2xl bg-amber-50/40 dark:bg-stone-900/40 border border-amber-200/50 dark:border-stone-800">
                     <div className="flex items-center justify-between mb-2">
-                      {item.reference && (
-                        <span className="text-xs font-sans font-bold text-[#4a153b] dark:text-rose-300">
-                          {item.reference}
-                        </span>
-                      )}
+                      <div className="flex items-center gap-2">
+                        {item.reference && (
+                          <span className="text-xs font-sans font-bold text-[#4a153b] dark:text-rose-300">
+                            {item.reference}
+                          </span>
+                        )}
+                        {isBriefReading && typeof selectedBriefReadingIndex === 'number' && briefReadings.length > 1 && (
+                          <span className="text-[11px] font-sans text-stone-400 dark:text-stone-500 italic">
+                            · Opção {selectedBriefReadingIndex + 1} de {briefReadings.length}
+                          </span>
+                        )}
+                      </div>
                       <button
                         onClick={() => toggleBookmark(item)}
                         className={`p-1 rounded transition-colors cursor-pointer ${
@@ -964,46 +1027,22 @@ export const FamilyOfficeView: React.FC<FamilyOfficeViewProps> = ({ fontSize, li
       )}
 
       {/* Mode 3: Additional Prayers (Páginas 87–89) */}
+      {/* Mode 3: Additional Prayers & Prayer Requests (Páginas 87–89 + Orações Pessoais) */}
       {activeTab === 'adicionais' && (
         <div className="space-y-6">
           <header className="text-center pb-4 border-b border-stone-200/60 dark:border-stone-800">
+            <p className="text-xs uppercase tracking-widest font-sans font-semibold text-[#b91c1c] dark:text-rose-400 mb-1">
+              Devoção Familiar & Intercessão
+            </p>
             <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#4a153b] dark:text-rose-200">
-              Orações Adicionais
+              Orações Adicionais & Pedidos
             </h2>
             <p className="text-xs font-sans text-stone-500 dark:text-stone-400 italic mt-1">
-              Páginas 87–89 do livro impresso
+              Intercessões, pedidos de oração da família, orações pessoais e orações das páginas 87–89 do livro
             </p>
           </header>
 
-          <p className="text-[#b91c1c] dark:text-rose-400 font-serif italic text-base">
-            Orações para a família e para momentos de intercessão e súplica:
-          </p>
-
-          {ADDITIONAL_PRAYERS.map((prayer, i) => (
-            <div
-              key={i}
-              className="p-6 rounded-2xl border border-stone-200/90 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-xs"
-            >
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-lg font-display font-bold text-[#4a153b] dark:text-rose-200">
-                  {prayer.title}
-                </h3>
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-sans text-stone-400">Pág. {prayer.page}</span>
-                  <button
-                    onClick={() => toggleGenericBookmark(`adicional-${i}`, prayer.title, prayer.text)}
-                    className="p-1 rounded text-stone-300 hover:text-stone-600 dark:text-stone-600 dark:hover:text-stone-300 cursor-pointer"
-                    title="Salvar nos Marcadores"
-                  >
-                    {bookmarkedMap[`adicional-${i}`] ? <BookmarkCheck className="w-4 h-4 text-[#4a153b] dark:text-rose-300" /> : <Bookmark className="w-4 h-4" />}
-                  </button>
-                </div>
-              </div>
-              <p className="text-stone-800 dark:text-stone-200 leading-relaxed font-serif text-lg">
-                {prayer.text}
-              </p>
-            </div>
-          ))}
+          <PrayerRequestsManager initialSubTab="pedidos" />
         </div>
       )}
 

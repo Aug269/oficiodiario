@@ -319,12 +319,15 @@ export default function App() {
               )}
             </button>
           </div>
-          <button
-            onClick={() => { setActiveView('sobre'); setIsMobileMenuOpen(false); }}
-            className="w-full mt-2 p-2 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-sans text-center flex items-center justify-center gap-1.5 cursor-pointer"
-          >
-            <Info className="w-3.5 h-3.5" /> Sobre o Livro e Jurisdição Litúrgica
-          </button>
+          <div className="pt-2 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between gap-2">
+            <PWAInstallButton />
+            <button
+              onClick={() => { setActiveView('sobre'); setIsMobileMenuOpen(false); }}
+              className="flex-1 p-2 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-sans text-center flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Info className="w-3.5 h-3.5" /> Sobre o Livro
+            </button>
+          </div>
         </div>
       )}
 

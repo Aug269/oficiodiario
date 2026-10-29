@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CANTICLES } from '../data/liturgyData';
 import { Canticle } from '../types/liturgy';
 import { Music, Sparkles } from 'lucide-react';
+import { CanticleMusicPlayer } from './CanticleMusicPlayer';
 
 interface CanticlesCatalogViewProps {
   fontSize: 'sm' | 'base' | 'lg' | 'xl';
@@ -62,6 +63,12 @@ export const CanticlesCatalogView: React.FC<CanticlesCatalogViewProps> = ({ font
             {current.reference}
           </span>
         </div>
+
+        {/* Music Player & Tone Generator */}
+        <CanticleMusicPlayer 
+          canticleId={current.id} 
+          canticleTitle={current.latinTitle} 
+        />
 
         <div className={`space-y-4 ${sizeClasses} text-stone-800 dark:text-stone-200`}>
           {current.verses.map((v, i) => (

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BookmarkItem } from '../types/bookmark';
 import { getBookmarks, removeBookmark, updateBookmarkNote } from '../services/bookmarkService';
-import { Bookmark, Trash2, Edit3, ArrowRight, BookOpen, Search, Check } from 'lucide-react';
+import { exportPrayersData, importPrayersData } from '../services/customPrayerService';
+import { Bookmark, Trash2, Edit3, ArrowRight, BookOpen, Search, Check, Download, Upload, HardDrive, X, ShieldCheck } from 'lucide-react';
 
 interface BookmarksViewProps {
   onNavigateToOffice: (officeId: string) => void;
@@ -42,6 +43,60 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
     setEditingId(null);
   };
 
+  const [showBackupModal, setShowBackupModal] = useState(false);
+  const [importJsonText, setImportJsonText] = useState('');
+  const [importFeedback, setImportFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  const handleExportDownload = () => {
+    const jsonStr = exportPrayersData();
+    const blob = new Blob([jsonStr], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `backup-devocionario-reb-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!importJsonText.trim()) return;
+
+    const res = importPrayersData(importJsonText.trim(), 'merge');
+    if (res.success) {
+      setImportFeedback({
+        type: 'success',
+        message: `Restaurado com sucesso! ${res.bookmarksCount} marcadores, ${res.requestsCount} pedidos e ${res.prayersCount} orações.`
+      });
+      setImportJsonText('');
+      setTimeout(() => {
+        setImportFeedback(null);
+        setShowBackupModal(false);
+      }, 2000);
+    } else {
+      setImportFeedback({
+        type: 'error',
+        message: res.error || 'Falha ao importar dados.'
+      });
+    }
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const content = ev.target?.result as string;
+      if (content) {
+        setImportJsonText(content);
+      }
+    };
+    reader.readAsText(file);
+  };
+
   const filtered = bookmarks.filter(b => {
     const q = searchQuery.toLowerCase();
     return (
@@ -62,9 +117,22 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
   return (
     <div className="max-w-4xl mx-auto py-8 px-4 sm:px-8 font-serif">
       <header className="mb-8 text-center border-b border-stone-200/80 dark:border-stone-800 pb-6">
-        <p className="text-xs uppercase tracking-widest font-sans font-semibold text-[#b91c1c] dark:text-rose-400 mb-2">
-          Devocionário Pessoal
-        </p>
+        <div className="flex items-center justify-between mb-2">
+          <p className="text-xs uppercase tracking-widest font-sans font-semibold text-[#b91c1c] dark:text-rose-400">
+            Devocionário Pessoal
+          </p>
+          <button
+            onClick={() => {
+              setImportFeedback(null);
+              setShowBackupModal(true);
+            }}
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-sans font-medium hover:bg-stone-50 dark:hover:bg-stone-700/60 transition-colors shadow-2xs cursor-pointer"
+          >
+            <HardDrive className="w-3.5 h-3.5 text-stone-500" />
+            <span>Backup & Sincronização</span>
+          </button>
+        </div>
+
         <h1 className="text-3xl sm:text-4xl font-display font-bold text-[#4a153b] dark:text-rose-100">
           Meus Marcadores
         </h1>
@@ -85,6 +153,79 @@ export const BookmarksView: React.FC<BookmarksViewProps> = ({
           </div>
         )}
       </header>
+
+      {/* BACKUP & RESTORE MODAL */}
+      {showBackupModal && (
+        <div className="mb-8 p-5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-300/80 dark:border-stone-700 space-y-4 animate-fade-in shadow-sm">
+          <div className="flex items-center justify-between pb-2 border-b border-stone-200 dark:border-stone-800">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+              <h4 className="font-display font-bold text-stone-900 dark:text-stone-100 text-base">
+                Backup do Devocionário (Marcadores, Orações e Pedidos)
+              </h4>
+            </div>
+            <button
+              onClick={() => setShowBackupModal(false)}
+              className="p-1 rounded text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          <p className="text-xs font-sans text-stone-600 dark:text-stone-400 leading-relaxed">
+            Seus marcadores e pedidos são salvos automaticamente no seu navegador. Use esta ferramenta para baixar um arquivo de segurança ou transferir seus dados para o celular ou outro computador.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
+            <div className="p-4 rounded-xl bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 space-y-2">
+              <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#4a153b] dark:text-rose-300 block">
+                Exportar Tudo
+              </span>
+              <p className="text-xs font-sans text-stone-600 dark:text-stone-400">
+                Baixe um arquivo JSON com todos os seus marcadores, anotações e pedidos de oração.
+              </p>
+              <button
+                type="button"
+                onClick={handleExportDownload}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4a153b] text-white text-xs font-sans font-semibold hover:bg-[#38102d] transition-colors shadow-2xs cursor-pointer"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Baixar Backup Completo (.json)</span>
+              </button>
+            </div>
+
+            <div className="p-4 rounded-xl bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 space-y-2">
+              <span className="text-xs font-sans font-bold uppercase tracking-wider text-[#b91c1c] dark:text-rose-400 block">
+                Restaurar Backup
+              </span>
+              <form onSubmit={handleImportSubmit} className="space-y-2">
+                <input
+                  type="file"
+                  accept=".json,application/json"
+                  onChange={handleFileUpload}
+                  className="block w-full text-xs text-stone-500 file:mr-2 file:py-1 file:px-2.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-stone-100 file:text-stone-700 hover:file:bg-stone-200 cursor-pointer"
+                />
+                <button
+                  type="submit"
+                  disabled={!importJsonText.trim()}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#b91c1c] text-white text-xs font-sans font-semibold hover:bg-[#991b1b] disabled:opacity-50 transition-colors cursor-pointer"
+                >
+                  <Upload className="w-3.5 h-3.5" />
+                  <span>Restaurar Arquivo</span>
+                </button>
+              </form>
+
+              {importFeedback && (
+                <p className={`text-xs font-medium p-2 rounded-lg ${
+                  importFeedback.type === 'success' ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-300' : 'bg-rose-50 text-rose-800 dark:bg-rose-950/40 dark:text-rose-300'
+                }`}>
+                  {importFeedback.message}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {bookmarks.length === 0 ? (
         <div className="text-center py-16 px-4 bg-white dark:bg-stone-900 rounded-3xl border border-dashed border-stone-300 dark:border-stone-800">
