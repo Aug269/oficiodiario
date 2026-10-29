@@ -7,12 +7,14 @@ import React, { useState, useEffect } from 'react';
 import { TRADITIONAL_HOURS } from './data/liturgyData';
 import { CanonicalHour } from './types/liturgy';
 import { getLiturgicalInfo, LiturgicalDayInfo } from './services/liturgicalCalendar';
+import { getBookmarks } from './services/bookmarkService';
 import { OfficeView } from './components/OfficeView';
 import { FamilyOfficeView } from './components/FamilyOfficeView';
 import { WeeklyOfficeView } from './components/WeeklyOfficeView';
 import { CollectsCatalogView } from './components/CollectsCatalogView';
 import { CanticlesCatalogView } from './components/CanticlesCatalogView';
 import { CalendarView } from './components/CalendarView';
+import { BookmarksView } from './components/BookmarksView';
 import { AboutView } from './components/AboutView';
 import { PWAInstallButton } from './components/PWAInstallButton';
 import {
@@ -29,7 +31,6 @@ import {
   Info,
   Menu,
   X,
-  Type,
   WifiOff
 } from 'lucide-react';
 
@@ -48,11 +49,12 @@ export default function App() {
   };
 
   const [selectedHourId, setSelectedHourId] = useState<CanonicalHour['id']>(getCurrentHourId());
-  const [activeView, setActiveView] = useState<'tradicional' | 'familias' | 'semana' | 'coletas' | 'canticos' | 'calendario' | 'sobre'>('tradicional');
+  const [activeView, setActiveView] = useState<'tradicional' | 'familias' | 'semana' | 'coletas' | 'canticos' | 'calendario' | 'marcadores' | 'sobre'>('tradicional');
   const [fontSize, setFontSize] = useState<'sm' | 'base' | 'lg' | 'xl'>('base');
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
+  const [bookmarkCount, setBookmarkCount] = useState<number>(getBookmarks().length);
 
   // Auto-update liturgical info on date change
   useEffect(() => {
@@ -69,6 +71,15 @@ export default function App() {
       window.removeEventListener('online', handleOnline);
       window.removeEventListener('offline', handleOffline);
     };
+  }, []);
+
+  // Monitor bookmarks count
+  useEffect(() => {
+    const updateCount = () => {
+      setBookmarkCount(getBookmarks().length);
+    };
+    window.addEventListener('bookmarks_updated', updateCount);
+    return () => window.removeEventListener('bookmarks_updated', updateCount);
   }, []);
 
   // Sync dark mode class with html element
@@ -88,13 +99,26 @@ export default function App() {
     setActiveView('tradicional');
   };
 
+  const handleNavigateFromBookmark = (officeId: string) => {
+    if (['matutino', 'meio-dia', 'vespertino', 'completas'].includes(officeId)) {
+      setSelectedHourId(officeId as CanonicalHour['id']);
+      setActiveView('tradicional');
+    } else if (officeId === 'familias') {
+      setActiveView('familias');
+    } else if (officeId === 'semana') {
+      setActiveView('semana');
+    } else {
+      setActiveView('tradicional');
+    }
+  };
+
   return (
     <div className={`min-h-screen flex flex-col ${isDarkMode ? 'dark bg-[#141214] text-stone-100' : 'bg-[#FAF8F5] text-stone-900'} transition-colors duration-200`}>
       {/* Offline Alert Strip */}
       {!isOnline && (
         <aside className="bg-amber-600 text-white text-xs font-sans py-1 px-4 text-center flex items-center justify-center gap-2">
           <WifiOff className="w-3.5 h-3.5" />
-          <span>Modo Offline ativado — todos os textos litúrgicos e salmos continuam disponíveis.</span>
+          <span>Modo Offline ativado — todos os textos litúrgicos, rubricas e salmos continuam disponíveis.</span>
         </aside>
       )}
 
@@ -105,7 +129,7 @@ export default function App() {
           <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => { setActiveView('tradicional'); setSelectedHourId(getCurrentHourId()); }}
-              className="flex items-center gap-2.5 text-left group"
+              className="flex items-center gap-2.5 text-left group cursor-pointer"
             >
               <div className="w-8 h-8 rounded-lg bg-[#4a153b] text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                 <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -127,7 +151,7 @@ export default function App() {
           <nav className="hidden lg:flex items-center gap-6 text-xs uppercase tracking-wider font-sans font-semibold text-stone-600 dark:text-stone-300">
             <button
               onClick={() => setActiveView('tradicional')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'tradicional' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
@@ -135,7 +159,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('familias')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'familias' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
@@ -143,7 +167,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('semana')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'semana' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
@@ -151,7 +175,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('coletas')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'coletas' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
@@ -159,7 +183,7 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('canticos')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'canticos' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
@@ -167,19 +191,32 @@ export default function App() {
             </button>
             <button
               onClick={() => setActiveView('calendario')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'calendario' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
               Calendário
             </button>
             <button
+              onClick={() => setActiveView('marcadores')}
+              className={`relative hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer flex items-center gap-1 ${
+                activeView === 'marcadores' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
+              }`}
+            >
+              <span>Marcadores</span>
+              {bookmarkCount > 0 && (
+                <span className="w-4 h-4 rounded-full bg-[#b91c1c] text-white text-[10px] flex items-center justify-center font-bold">
+                  {bookmarkCount}
+                </span>
+              )}
+            </button>
+            <button
               onClick={() => setActiveView('sobre')}
-              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 ${
+              className={`hover:text-[#4a153b] dark:hover:text-rose-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
                 activeView === 'sobre' ? 'text-[#4a153b] dark:text-rose-300 border-b-2 border-[#4a153b] pb-1' : ''
               }`}
             >
-              Sobre o Livro
+              Sobre
             </button>
           </nav>
 
@@ -189,14 +226,14 @@ export default function App() {
             <div className="hidden sm:flex items-center rounded-lg bg-stone-100 dark:bg-stone-800 p-0.5 border border-stone-200/80 dark:border-stone-700">
               <button
                 onClick={() => setFontSize(prev => prev === 'xl' ? 'lg' : prev === 'lg' ? 'base' : 'sm')}
-                className="px-2 py-1 text-xs font-sans text-stone-600 dark:text-stone-300 hover:text-black dark:hover:text-white"
+                className="px-2 py-1 text-xs font-sans text-stone-600 dark:text-stone-300 hover:text-black dark:hover:text-white cursor-pointer"
                 title="Diminuir texto"
               >
                 A-
               </button>
               <button
                 onClick={() => setFontSize(prev => prev === 'sm' ? 'base' : prev === 'base' ? 'lg' : 'xl')}
-                className="px-2 py-1 text-xs font-sans font-bold text-stone-800 dark:text-stone-100 hover:text-black dark:hover:text-white"
+                className="px-2 py-1 text-xs font-sans font-bold text-stone-800 dark:text-stone-100 hover:text-black dark:hover:text-white cursor-pointer"
                 title="Aumentar texto"
               >
                 A+
@@ -206,8 +243,8 @@ export default function App() {
             {/* Dark/Night mode toggle */}
             <button
               onClick={() => setIsDarkMode(!isDarkMode)}
-              className="p-2 rounded-lg text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors"
-              title={isDarkMode ? 'Modo Claro' : 'Modo Noturno (Completas)'}
+              className="p-2 rounded-lg text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 transition-colors cursor-pointer"
+              title={isDarkMode ? 'Modo Claro' : 'Modo Noturno'}
             >
               {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#4a153b]" />}
             </button>
@@ -218,7 +255,7 @@ export default function App() {
             {/* Mobile menu hamburger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800"
+              className="lg:hidden p-2 rounded-lg text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 cursor-pointer"
               aria-label="Abrir menu"
             >
               {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -229,48 +266,62 @@ export default function App() {
 
       {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 px-4 py-4 space-y-2 z-30 shadow-lg">
+        <div className="lg:hidden bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 px-4 py-4 space-y-2 z-30 shadow-lg animate-fade-in">
           <div className="grid grid-cols-2 gap-2 text-xs font-sans font-medium">
             <button
               onClick={() => { setActiveView('tradicional'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'tradicional' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'tradicional' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <BookOpen className="w-4 h-4" /> Ofício Tradicional
             </button>
             <button
               onClick={() => { setActiveView('familias'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'familias' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'familias' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
-              <Users className="w-4 h-4" /> Famílias e Indivíduos
+              <Users className="w-4 h-4" /> Famílias & Indivíduos
             </button>
             <button
               onClick={() => { setActiveView('semana'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'semana' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'semana' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <Compass className="w-4 h-4" /> Ofício Semanal
             </button>
             <button
               onClick={() => { setActiveView('coletas'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'coletas' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'coletas' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <Bookmark className="w-4 h-4" /> Coletas
             </button>
             <button
               onClick={() => { setActiveView('canticos'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'canticos' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'canticos' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <Music className="w-4 h-4" /> Cânticos
             </button>
             <button
               onClick={() => { setActiveView('calendario'); setIsMobileMenuOpen(false); }}
-              className={`p-2.5 rounded-lg text-left flex items-center gap-2 ${activeView === 'calendario' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+              className={`p-2.5 rounded-lg text-left flex items-center gap-2 cursor-pointer ${activeView === 'calendario' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
             >
               <CalendarIcon className="w-4 h-4" /> Calendário REB
+            </button>
+            <button
+              onClick={() => { setActiveView('marcadores'); setIsMobileMenuOpen(false); }}
+              className={`p-2.5 rounded-lg text-left flex items-center justify-between col-span-2 cursor-pointer ${activeView === 'marcadores' ? 'bg-[#4a153b] text-white' : 'bg-stone-100 dark:bg-stone-800'}`}
+            >
+              <div className="flex items-center gap-2">
+                <Bookmark className="w-4 h-4" />
+                <span>Meus Marcadores Salvos</span>
+              </div>
+              {bookmarkCount > 0 && (
+                <span className="w-4 h-4 rounded-full bg-[#b91c1c] text-white text-[10px] flex items-center justify-center font-bold">
+                  {bookmarkCount}
+                </span>
+              )}
             </button>
           </div>
           <button
             onClick={() => { setActiveView('sobre'); setIsMobileMenuOpen(false); }}
-            className="w-full mt-2 p-2 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-sans text-center flex items-center justify-center gap-1.5"
+            className="w-full mt-2 p-2 rounded-lg bg-stone-50 dark:bg-stone-800 text-stone-600 dark:text-stone-300 text-xs font-sans text-center flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <Info className="w-3.5 h-3.5" /> Sobre o Livro e Jurisdição Litúrgica
           </button>
@@ -299,7 +350,7 @@ export default function App() {
             <span className="capitalize">{liturgicalInfo.dateFormatted}</span>
             <button
               onClick={() => setActiveView('calendario')}
-              className="text-[#4a153b] dark:text-rose-300 hover:underline font-medium text-[11px]"
+              className="text-[#4a153b] dark:text-rose-300 hover:underline font-medium text-[11px] cursor-pointer"
             >
               (Alterar data)
             </button>
@@ -319,7 +370,7 @@ export default function App() {
                 <button
                   key={hour.id}
                   onClick={() => setSelectedHourId(hour.id)}
-                  className={`relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all whitespace-nowrap ${
+                  className={`relative flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-sans font-medium transition-all whitespace-nowrap cursor-pointer ${
                     isSelected
                       ? 'bg-[#4a153b] text-white shadow-xs font-semibold'
                       : 'text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100 dark:hover:bg-stone-800'
@@ -355,7 +406,7 @@ export default function App() {
         )}
 
         {activeView === 'familias' && (
-          <FamilyOfficeView fontSize={fontSize} />
+          <FamilyOfficeView fontSize={fontSize} liturgicalInfo={liturgicalInfo} />
         )}
 
         {activeView === 'semana' && (
@@ -375,6 +426,13 @@ export default function App() {
             currentDate={currentDate}
             onSelectDate={(d) => setCurrentDate(d)}
             onOpenOfficeForDate={handleSelectDateAndOpen}
+          />
+        )}
+
+        {activeView === 'marcadores' && (
+          <BookmarksView
+            onNavigateToOffice={handleNavigateFromBookmark}
+            fontSize={fontSize}
           />
         )}
 

@@ -95,6 +95,14 @@ Não há linguagem, nem há palavras, e deles não se ouve nenhum som;
 no entanto, por toda a terra se faz ouvir a sua voz, e as suas palavras até aos confins do mundo.
 Que as palavras da minha boca e a meditação do meu coração sejam agradáveis a ti, SENHOR, minha rocha e meu redentor!`,
 
+  // Salmo 5:1-3
+  'Salmo 5:1-3': `Dá ouvidos às minhas palavras, ó SENHOR,
+atende ao meu gemido.
+Escuta a voz do meu clamor, Rei meu e Deus meu,
+pois a ti orarei.
+Pela manhã, SENHOR, ouves a minha voz;
+pela manhã te apresento a minha oração e fico esperando.`,
+
   // Salmo 51:1-12
   'Salmo 51:1-12': `Tem misericórdia de mim, ó Deus, segundo a tua benignidade; apaga as minhas transgressões, segundo a multidão das tuas misericórdias.
 Lava-me completamente da minha iniquidade e purifica-me do meu pecado.
@@ -136,5 +144,47 @@ Quem intentará acusação contra os eleitos de Deus? É Deus quem os justifica.
 Quem os condenará? É Cristo Jesus quem morreu, ou antes, quem ressuscitou, o qual está à direita de Deus e também intercede por nós.
 Quem nos separará do amor de Cristo? Será a tribulação, ou a angústia, ou a perseguição, ou a fome, ou a nudez, ou o perigo, ou a espada?
 Mas em todas estas coisas somos mais que vencedores, por meio daquele que nos amou.
-Porque estou bem certo de que nem a morte, nem a vida, nem anjos, nem principados, nem coisas presentes, nem futuras, nem poderes, nem a altura, nem a profundidade, nem qualquer outra criatura poderá separar-nos do amor de Deus, que está em Cristo Jesus, nosso Senhor.`
+Porque estou bem certo de que nem a morte, nem a vida, nem anjos, nem principados, nem coisas presentes, nem futuras, nem poderes, nem a altura, nem a profundidade, nem qualquer outra criatura poderá separar-nos do amor de Deus, que está em Cristo Jesus, nosso Senhor.`,
+
+  // 1 Pedro 1:3
+  '1 Pedro 1:3': `Bendito seja o Deus e Pai de nosso Senhor Jesus Cristo! Em sua grande misericórdia, ele nos fez nascer de novo para uma esperança viva, pela ressurreição de Jesus Cristo dentre os mortos.`,
+
+  // Colossenses 1:12-14
+  'Colossenses 1:12-14': `Dai graças ao Pai, que vos tornou dignos de participar da herança dos santos na luz. Ele nos libertou do domínio das trevas e nos transferiu para o Reino do seu Filho amado, em quem temos a redenção, o perdão dos pecados.`,
+
+  // Colossenses 3:1-4
+  'Colossenses 3:1-4': `Já que fostes ressuscitados com Cristo, buscai as coisas do alto, onde Cristo está sentado à direita de Deus. Voltai o pensamento para as coisas do alto, e não para as da terra. Pois morrestes, e a vossa vida está escondida com Cristo em Deus. Quando Cristo, que é a vossa vida, for manifestado, então também vós sereis manifestados com ele em glória.`,
+
+  // Malaquias 1:11
+  'Malaquias 1:11': `Pois desde o nascente do sol até ao poente, é grande o meu nome entre as nações; e em todo lugar se oferece ao meu nome incenso e uma oferta pura; porque o meu nome é grande entre as nações, diz o SENHOR dos Exércitos.`,
+
+  // 1 João 1:5-7
+  '1 João 1:5-7': `Esta é a mensagem que dele ouvimos e vos anunciamos: Deus é luz, e não há nele treva alguma. Se dissermos que temos comunhão com ele, e andarmos nas trevas, mentimos e não praticamos a verdade. Mas, se andarmos na luz, como ele está na luz, temos comunhão uns com os outros, e o sangue de Jesus, seu Filho, nos purifica de todo pecado.`,
+
+  // Romanos 12:1-2
+  'Romanos 12:1-2': `Rogo-vos, pois, irmãos, pelas misericórdias de Deus, que apresenteis o vosso corpo por sacrifício vivo, santo e agradável a Deus, que é o vosso culto racional. E não vos conformeis com este século, mas transformai-vos pela renovação da vossa mente, para que experimenteis qual seja a boa, agradável e perfeita vontade de Deus.`,
+
+  // Jeremias 14:9
+  'Jeremias 14:9': `Tu estás em nosso meio, ó SENHOR, e nós somos chamados pelo teu nome; não nos desampares!`,
+
+  // Hebreus 7:23-28
+  'Hebreus 7:23-28': `E, na verdade, aqueles foram feitos sacerdotes em grande número, porque pela morte foram impedidos de permanecer; mas este, porque permanece eternamente, tem um sacerdócio perpétuo. Portanto, pode também salvar perfeitamente os que por ele se chegam a Deus, vivendo sempre para interceder por eles. Porque nos convinha tal sumo sacerdote, santo, inocente, imaculado, separado dos pecadores e feito mais sublime do que os céus; que não necessitasse, como os sumos sacerdotes, de oferecer cada dia sacrifícios, primeiramente por seus próprios pecados e, depois, pelos do povo; porque isso fez ele, uma vez por todas, oferecendo-se a si mesmo.`,
+
+  // Marcos 10:46-52
+  'Marcos 10:46-52': `Depois, foram para Jericó. E, saindo ele de Jericó com seus discípulos e uma grande multidão, Bartimeu, o cego, filho de Timeu, estava assentado junto do caminho, mendigando. E, ouvindo que era Jesus de Nazaré, começou a clamar e a dizer: Jesus, Filho de Davi! Tem misericórdia de mim. E muitos o repreendiam, para que se calasse; mas ele clamava cada vez mais: Filho de Davi! Tem misericórdia de mim. E Jesus, parando, disse que o chamassem; e chamaram o cego, dizendo-lhe: Tem bom ânimo; levanta-te, que ele te chama. E ele, lançando de si a sua capa, levantou-se e foi ter com Jesus. E Jesus, falando, disse-lhe: Que queres que te faça? E o cego lhe disse: Mestre, que eu tenha vista. E Jesus lhe disse: Vai, a tua fé te salvou. E logo viu, e seguia a Jesus pelo caminho.`,
+
+  // Lucas 18:9-14
+  'Lucas 18:9-14': `E disse também esta parábola a uns que confiavam em si mesmos, crendo que eram justos, e desprezavam os outros: Dois homens subiram ao templo, para orar; um, fariseu, e o outro, publicano. O fariseu, estando em pé, orava consigo desta maneira: Ó Deus, graças te dou, porque não sou como os demais homens, roubadores, injustos e adúlteros; nem ainda como este publicano. Jejuo duas vezes na semana e dou os dízimos de tudo quanto possuo. O publicano, porém, estando em pé, de longe, nem ainda queria levantar os olhos ao céu, mas batia no peito, dizendo: Ó Deus, tem misericórdia de mim, pecador! Digo-vos que este desceu justificado para sua casa, e não aquele; porque qualquer que a si mesmo se exalta será humilhado, e qualquer que a si mesmo se humilha será exaltado.`,
+
+  // João 9:1-11
+  'João 9:1-11': `E, passando Jesus, viu um homem cego de nascença. E os seus discípulos lhe perguntaram, dizendo: Rabi, quem pecou, este ou seus pais, para que nascesse cego? Jesus respondeu: Nem ele pecou nem seus pais; mas foi assim para que se manifestem nele as obras de Deus. Convém que eu faça as obras daquele que me enviou, enquanto é dia; a noite vem, quando ninguém pode trabalhar. Enquanto estou no mundo, sou a luz do mundo. Tendo dito isto, cuspiu na terra, e com a saliva fez lodo, e untou com o lodo os olhos do cego. E disse-lhe: Vai, lava-te no tanque de Siloé (que significa Enviado). Foi, pois, e lavou-se, e voltou vendo.`,
+
+  // 2 Reis 20:12-19
+  '2 Reis 20:12-19': `Naquele tempo, Merodaque-Baladã, filho de Baladã, rei da Babilônia, enviou cartas e um presente a Ezequias; porque ouvira que Ezequias tinha estado doente. E Ezequias lhes deu ouvidos e lhes mostrou toda a casa do seu tesouro, a prata, o ouro, as especiarias e os melhores unguentos, e a sua casa de armas, e tudo quanto se achava nos seus tesouros; coisa nenhuma houve que lhes não mostrasse, nem em sua casa, nem em todo o seu domínio. Então, o profeta Isaías veio ao rei Ezequias e lhe disse: Que disseram aqueles homens e de onde vieram a ti? Disse Ezequias: Vieram de uma terra mui distante, da Babilônia. E disse ele: Que viram em tua casa? E disse Ezequias: Tudo quanto há em minha casa viram; coisa nenhuma há nos meus tesouros que eu lhes não mostrasse. Então, disse Isaías a Ezequias: Ouve a palavra do SENHOR: Eis que vêm dias em que tudo quanto houver em tua casa, e o que entesouraram teus pais até ao dia de hoje, será levado para a Babilônia; não ficará coisa alguma, disse o SENHOR.`,
+
+  // Neemias 1:1-11
+  'Neemias 1:1-11': `As palavras de Neemias, filho de Hacalias. E sucedeu no mês de Quisleu, no ano vigésimo, estando eu em Susã, a fortaleza, que veio Hanani, um de meus irmãos, ele e alguns de Judá; e perguntei-lhes pelos judeus que escaparam e que restaram do cativeiro e acerca de Jerusalém. E disseram-me: Os restantes, que ficaram do cativeiro, lá na província estão em grande miséria e desprezo; e o muro de Jerusalém, fendido, e as suas portas, queimadas a fogo. E sucedeu que, ouvindo eu estas palavras, assentei-me, e chorei, e lamentei por alguns dias; e estive jejuando e orando perante o Deus dos céus. E disse: Ah! SENHOR, Deus dos céus, Deus grande e temível, que guardas o concerto e a misericórdia para com aqueles que te amam e guardam os teus mandamentos! Estejam, pois, atentos os teus ouvidos, e os teus olhos, abertos, para ouvires a oração do teu servo, que eu hoje faço perante ti, de dia e de noite, pelos filhos de Israel, teus servos.`,
+
+  // Mateus 20:29-34
+  'Mateus 20:29-34': `E, saindo eles de Jericó, seguiu-o grande multidão. E eis que dois cegos, assentados junto do caminho, ouvindo que Jesus passava, clamaram, dizendo: Senhor, Filho de Davi, tem misericórdia de nós! E a multidão os repreendia, para que se calassem; eles, porém, cada vez clamavam mais, dizendo: Senhor, Filho de Davi, tem misericórdia de nós! E Jesus, parando, chamou-os e disse: Que quereis que vos faça? Disseram-lhe eles: Senhor, que os nossos olhos se abram. Então, Jesus, movido de íntima compaixão, tocou-lhes nos olhos, e logo seus olhos viram; e eles o seguiram.`
 };
